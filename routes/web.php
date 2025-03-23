@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ViewController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -16,5 +17,10 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+//------------------------- Sidebar Buttons and Routes ------------------------- //
+Route::get('/customers', [ViewController::class, 'customer'])->name('ViewCustomer');
+Route::get('/suppliers', [ViewController::class, 'supplier'])->name('ViewSupplier');
+
 
 require __DIR__.'/auth.php';

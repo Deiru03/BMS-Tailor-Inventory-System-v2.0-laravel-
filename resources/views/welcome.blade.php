@@ -74,7 +74,7 @@
             </header>
 
             <!-- Hero Section -->
-            <div class="bg-white text-gray-800 border-b py-16">
+            <div id="hero-section" class="bg-white text-gray-800 border-b py-16">
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div class="text-center mb-8">
                         <h2 class="text-4xl sm:text-5xl font-bold text-gray-800">BMS Tailor Inventory Management</h2>
@@ -86,10 +86,26 @@
                             <a href="{{ url('/dashboard') }}" class="btn-tailor bg-blue-600 text-white hover:bg-blue-700 text-lg px-8 py-3">Go to Dashboard</a>
                         @else
                             <a href="{{ route('login') }}" class="btn-tailor bg-blue-600 text-white hover:bg-blue-700 text-lg px-8 py-3">Access System</a>
+                            <a id="register-link" href="{{ route('register') }}" class="hidden btn-tailor bg-green-600 text-white hover:bg-green-700 text-lg px-8 py-3 ml-4">Register Now</a>
                         @endauth
                     </div>
                 </div>
             </div>
+
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    const heroSection = document.getElementById('hero-section');
+                    const registerLink = document.getElementById('register-link');
+                    let clickCount = 0;
+                    
+                    heroSection.addEventListener('click', function() {
+                        clickCount++;
+                        if (clickCount >= 10) {
+                            registerLink.classList.remove('hidden');
+                        }
+                    });
+                });
+            </script>
 
             <!-- Features Section -->
             <section class="py-16 bg-gray-50">
