@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\View\View;
 use App\Models\CustomersInfo;
+use App\Models\SupplierInfo;
 
 
 
@@ -19,6 +20,9 @@ class ViewController extends Controller
     }
 
     public function supplier(){
-        return view('suppliers');
+        
+        $suppliers = SupplierInfo::all();
+
+        return view('suppliers', compact('suppliers'));
     }
 }

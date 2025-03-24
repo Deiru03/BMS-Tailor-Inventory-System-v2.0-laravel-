@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ViewController;
 use App\Http\Controllers\Customer\CustomerController;
+use App\Http\Controllers\Supplier\SupplierController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -25,6 +26,9 @@ Route::get('/suppliers', [ViewController::class, 'supplier'])->name('ViewSupplie
 
 // Customer Resource Controller
 Route::resource('customer-action', CustomerController::class);
+
+// Supplier Resource Controller
+Route::resource('supplier-action', SupplierController::class);
 
 
 require __DIR__.'/auth.php';

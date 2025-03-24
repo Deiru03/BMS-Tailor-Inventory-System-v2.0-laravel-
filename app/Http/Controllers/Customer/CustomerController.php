@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\CustomersInfo;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Log;
+
 
 class CustomerController extends Controller
 {
@@ -22,27 +24,32 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
-        //
-        $request->validate([
-            'name'    => 'required|string|max:255',
-            'email'   => 'nullable|email|max:255',
-            'phone'   => 'required|string|max:20',
-            'address' => 'required|string|max:255',
-            'sex'     => 'required|in:male,female',
-            'notes'   => 'nullable|string'  
-        ]);
-            $customer = new CustomersInfo();
-            $customer->name       = $request->name;
-            $customer->email      = $request->email;
-            $customer->phone      = $request->phone;
-            $customer->address    = $request->address;
-            $customer->sex        = $request->sex;
-            $customer->notes      = $request->notes;
-            $customer->customer_id = 'CUST-' . strtoupper(Str::random(6));
-            $customer->save();
-            
+        try{
+            $request->validate([
+                'name'    => 'required|string|max:255',
+                'email'   => 'nullable|email|max:255',
+                'phone'   => 'required|string|max:20',
+                'address' => 'required|string|max:255',
+                'sex'     => 'required|in:male,female',
+                'notes'   => 'nullable|string'  
+            ]);
+                $customer = new CustomersInfo();
+                $customer->name       = $request->name;
+                $customer->email      = $request->email;
+                $customer->phone      = $request->phone;
+                $customer->address    = $request->address;
+                $customer->sex        = $request->sex;
+                $customer->notes      = $request->notes;
+                $customer->customer_id = 'CUST-' . strtoupper(Str::random(6));
+                $customer->save();
+                
             return redirect()->route('ViewCustomer')
-                ->with('success', 'Customer created successfully');
+                    ->with('success', 'Customer created successfully');
+        } 
+        catch (\Exception $e){
+            return redirect()->route('ViewCustomer')
+                ->with('error', 'An error occurred while creating the customer');
+        }
     }
 
     /**
