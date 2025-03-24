@@ -17,5 +17,8 @@ class CustomersInfo extends Model
         'sex',
         'notes',
         'customer_id',
+        'purchased_amount',
+        'amount_paid',
+        'balance'
     ];
 }
