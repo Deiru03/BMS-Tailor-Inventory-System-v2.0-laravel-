@@ -58,7 +58,7 @@ class SupplierController extends Controller
         }
         catch (\Exception $e){
             return redirect()->route('ViewSupplier')
-                ->with('error', 'An error occurred while creating the customer');
+                ->with('error', 'An error occurred while creating the supplier');
         }
     }
 
@@ -75,7 +75,8 @@ class SupplierController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $supplier = SupplierInfo::findOrFail($id);
+        return view('components.supplier-modals.supplier-edit', compact('supplier'));
     }
 
     /**
@@ -91,6 +92,16 @@ class SupplierController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        try {
+            $supplier = SupplierInfo::findOrFail($id);
+            $supplier->delete();
+
+            return redirect()->route('ViewSupplier')
+                ->with('success', 'Supplier deleted successfully');
+        } catch (\Throwable $th) {
+            return redirect()->route('ViewSupplier')
+                ->with('error', 'An error occurred while deleting the supplier');
+        }
+        
     }
 }

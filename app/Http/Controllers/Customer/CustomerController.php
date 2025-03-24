@@ -81,40 +81,44 @@ class CustomerController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        // Validate input
-        $request->validate([
-            'name'    => 'required|string|max:255',
-            'email'   => 'nullable|email|max:255',
-            'phone'   => 'required|string|max:20',
-            'address' => 'required|string|max:255',
-            'sex'     => 'required|in:male,female',
-            'notes'   => 'nullable|string',
-            'purchased_amount' => 'required|numeric',
-            'amount_paid'      => 'required|numeric',
-            'balance'          => 'required|numeric'
-        ]);
-
-        // Find the customer record
-        $customer = CustomersInfo::findOrFail($id);
-
-        // Update the customer fields
-        $customer->name    = $request->name;
-        $customer->email   = $request->email;
-        $customer->phone   = $request->phone;
-        $customer->address = $request->address;
-        $customer->sex     = $request->sex;
-        $customer->notes   = $request->notes;
-        $customer->purchased_amount = $request->purchased_amount;
-        $customer->amount_paid      = $request->amount_paid;
-        $customer->balance          = $request->balance;
-
-        // Save changes
-        $customer->save();
-
-        // Redirect back with success message
-        return redirect()->route('ViewCustomer')
-            ->with('success', 'Customer updated successfully');
-
+        try {
+            $request->validate([
+                'name'    => 'required|string|max:255',
+                'email'   => 'nullable|email|max:255',
+                'phone'   => 'required|string|max:20',
+                'address' => 'required|string|max:255',
+                'sex'     => 'required|in:male,female',
+                'notes'   => 'nullable|string',
+                'purchased_amount' => 'required|numeric',
+                'amount_paid'      => 'required|numeric',
+                'balance'          => 'required|numeric'
+            ]);
+    
+            // Find the customer record
+            $customer = CustomersInfo::findOrFail($id);
+    
+            // Update the customer fields
+            $customer->name    = $request->name;
+            $customer->email   = $request->email;
+            $customer->phone   = $request->phone;
+            $customer->address = $request->address;
+            $customer->sex     = $request->sex;
+            $customer->notes   = $request->notes;
+            $customer->purchased_amount = $request->purchased_amount;
+            $customer->amount_paid      = $request->amount_paid;
+            $customer->balance          = $request->balance;
+    
+            // Save changes
+            $customer->save();
+    
+            // Redirect back with success message
+            return redirect()->route('ViewCustomer')
+                ->with('success', 'Customer updated successfully');
+    
+        } catch (\Exception $e) {
+            return redirect()->route('ViewCustomer')
+                ->with('error', 'Failed Updating the Customer');
+        }// Validate input
     }
 
     /**
@@ -122,10 +126,15 @@ class CustomerController extends Controller
      */
     public function destroy(string $id)
     {
-        //
-        $userid = CustomersInfo::find($id);
-        $userid->delete();
-        return redirect()->route('ViewCustomer')
-            ->with('success', 'Customer deleted successfully');
+        try {
+            $userid = CustomersInfo::find($id);
+            $userid->delete();
+            return redirect()->route('ViewCustomer')
+                ->with('success', 'Customer deleted successfully');
+        } catch (\Throwable $th) {
+            return redirect()->route('ViewCustomer')
+                ->with('error', 'An error occurred while deleting the customer');
+        }
+       
     }
 }
