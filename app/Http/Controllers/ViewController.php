@@ -12,14 +12,13 @@ class ViewController extends Controller
 {
     //------------------------- Sidebar Buttons and Routes ------------------------- //
     public function customer(){
-        return view('customers');
+
+        $customers = CustomersInfo::all();
+
+        return view('customers', compact('customers'));
     }
 
     public function supplier(){
         return view('suppliers');
     }
-
-    // public function products(){
-    //     return view('products');
-    // }
 }

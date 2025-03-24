@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ViewController;
+use App\Http\Controllers\Customer\CustomerController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -21,6 +22,9 @@ Route::middleware('auth')->group(function () {
 //------------------------- Sidebar Buttons and Routes ------------------------- //
 Route::get('/customers', [ViewController::class, 'customer'])->name('ViewCustomer');
 Route::get('/suppliers', [ViewController::class, 'supplier'])->name('ViewSupplier');
+
+// Customer Resource Controller
+Route::resource('customer-action', CustomerController::class);
 
 
 require __DIR__.'/auth.php';
