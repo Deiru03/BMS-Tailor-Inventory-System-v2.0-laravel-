@@ -6,9 +6,9 @@
     </x-slot>
 
     <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div class="max-w-5xl mx-auto">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
+                <div class="p-0 text-gray-900">
                     <div class="flex justify-between items-center mb-6">
                         <h3 class="text-lg font-semibold">{{ __("Suppliers") }}</h3>
                         <button type="button" onclick="openModal('supplierModal')" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
@@ -42,7 +42,7 @@
                     </script>
 
                     <div class="overflow-x-auto">
-                        <table class="min-w-full bg-white border border-gray-200">
+                        <table class="min-w-full bg-white border border-gray-200 text-sm">
                             <thead>
                                 <tr>
                                     <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
@@ -74,7 +74,7 @@
                                     </th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody class="text-xs">
                                 @forelse($suppliers as $supplier)
                                     <tr>
                                         <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
@@ -101,7 +101,7 @@
                                         <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                                             {{ ucfirst($supplier->supplier_type) }} 
                                         </td>
-                                        <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm">
+                                        <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                                             <button
                                                 type="button"
                                                 class="text-blue-600 hover:text-blue-900 mr-3"

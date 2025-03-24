@@ -112,24 +112,24 @@
                             class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 focus:outline-none"
                             required
                         >
-                            <option value="male" {{ old('supplier_type', $supplier->supplier_type) === 'fabric' ? 'selected' : '' }}>Fabric</option>
-                            <option value="female" {{ old('supplier_type', $supplier->supplier_type) === 'accessories' ? 'selected' : '' }}>Accessories</option>
-                            <option value="female" {{ old('supplier_type', $supplier->supplier_type) === 'thread' ? 'selected' : '' }}>Thread</option>
-                            <option value="female" {{ old('supplier_type', $supplier->supplier_type) === 'buttons' ? 'selected' : '' }}>Buttons</option>
-                            <option value="female" {{ old('supplier_type', $supplier->supplier_type) === 'zippers' ? 'selected' : '' }}>Zippers</option>
-                            <option value="female" {{ old('supplier_type', $supplier->supplier_type) === 'equipment' ? 'selected' : '' }}>Equipment</option>
-                            <option value="female" {{ old('supplier_type', $supplier->supplier_type) === 'other' ? 'selected' : '' }}>Other</option>
+                            <option value="fabric" {{ old('supplier_type', $supplier->supplier_type) === 'fabric' ? 'selected' : '' }}>Fabric</option>
+                            <option value="accessories" {{ old('supplier_type', $supplier->supplier_type) === 'accessories' ? 'selected' : '' }}>Accessories</option>
+                            <option value="thread" {{ old('supplier_type', $supplier->supplier_type) === 'thread' ? 'selected' : '' }}>Thread</option>
+                            <option value="buttons" {{ old('supplier_type', $supplier->supplier_type) === 'buttons' ? 'selected' : '' }}>Buttons</option>
+                            <option value="zippers" {{ old('supplier_type', $supplier->supplier_type) === 'zippers' ? 'selected' : '' }}>Zippers</option>
+                            <option value="equipment" {{ old('supplier_type', $supplier->supplier_type) === 'equipment' ? 'selected' : '' }}>Equipment</option>
+                            <option value="other" {{ old('supplier_type', $supplier->supplier_type) === 'other' ? 'selected' : '' }}>Other</option>
                         </select>
                     </div>
 
                   <!-- TIN -->
                   <div class="mb-4">
-                    <label for="city" class="block text-gray-700 text-sm font-bold mb-2">City</label>
+                    <label for="tin" class="block text-gray-700 text-sm font-bold mb-2">tin</label>
                     <input
                         type="text"
-                        name="city"
-                        id="city"
-                        value="{{ old('city', $supplier->city) }}"
+                        name="tin"
+                        id="tin"
+                        value="{{ old('city', $supplier->tin) }}"
                         class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 focus:outline-none"
                         required
                     >

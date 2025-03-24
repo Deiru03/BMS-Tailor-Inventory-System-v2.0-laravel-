@@ -67,7 +67,8 @@ class SupplierController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $supplier = SupplierInfo::findOrFail($id);
+        return view('components.supplier-modals.supplier-show', compact('supplier'));
     }
 
     /**
@@ -84,7 +85,43 @@ class SupplierController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        try {
+            // Validate the request data
+            $request->validate([
+                'name' => 'required|string|max:255',
+                'contact_person' => 'nullable|string|max:255',
+                'email' => 'nullable|email|max:255',
+                'phone' => 'required|string|max:20',
+                'address' => 'nullable|string|max:255',
+                'city' => 'nullable|string|max:100',
+                'province' => 'nullable|string|max:100',
+                'tin' => 'nullable|string|max:50',
+                'supplier_type' => 'required|in:fabric,accessories,thread,buttons,zippers,equipment,other',
+                'notes' => 'nullable|string'
+            ]);
+
+            // Find the supplier
+            $supplier = SupplierInfo::findOrFail($id);
+            
+            // Update the supplier data
+            $supplier->name = $request->name;
+            $supplier->contact_person = $request->contact_person;
+            $supplier->email = $request->email;
+            $supplier->phone = $request->phone;
+            $supplier->address = $request->address;
+            $supplier->city = $request->city;
+            $supplier->province = $request->province;
+            $supplier->tin = $request->tin;
+            $supplier->supplier_type = $request->supplier_type;
+            $supplier->notes = $request->notes;
+            $supplier->save();
+            
+            return redirect()->route('ViewSupplier')
+                ->with('success', 'Supplier updated successfully');
+        } catch (\Exception $e) {
+            return redirect()->route('ViewSupplier')
+                ->with('error', 'An error occurred while updating the supplier');
+        }
     }
 
     /**
