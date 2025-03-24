@@ -81,7 +81,10 @@ class CustomerController extends Controller
             'phone'   => 'required|string|max:20',
             'address' => 'required|string|max:255',
             'sex'     => 'required|in:male,female',
-            'notes'   => 'nullable|string'
+            'notes'   => 'nullable|string',
+            'purchased_amount' => 'required|numeric',
+            'amount_paid'      => 'required|numeric',
+            'balance'          => 'required|numeric'
         ]);
 
         // Find the customer record
@@ -94,6 +97,9 @@ class CustomerController extends Controller
         $customer->address = $request->address;
         $customer->sex     = $request->sex;
         $customer->notes   = $request->notes;
+        $customer->purchased_amount = $request->purchased_amount;
+        $customer->amount_paid      = $request->amount_paid;
+        $customer->balance          = $request->balance;
 
         // Save changes
         $customer->save();

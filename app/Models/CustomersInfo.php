@@ -10,15 +10,15 @@ class CustomersInfo extends Model
     use HasFactory;
     protected $table = 'customers_infos';
     protected $fillable = [
+        'customer_id',
         'name',
         'email',
         'phone',
         'address',
         'sex',
         'notes',
-        'customer_id',
         'purchased_amount',
         'amount_paid',
-        'balance'
+        'balance',
     ];
 }
