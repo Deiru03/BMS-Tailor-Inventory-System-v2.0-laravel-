@@ -84,8 +84,13 @@
                                             {{ ucfirst($customer->sex) }}
                                         </td>
                                         <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm">
-                                            <a href="{{ route('customer-action.show', $customer->id) }}" class="text-blue-600 hover:text-blue-900 mr-3">View</a>
-                                            {{-- <a href="{{ route('customer-action.edit', $customer->id) }}" class="text-indigo-600 hover:text-indigo-900 mr-3">Edit</a> --}}
+                                            <button
+                                                type="button"
+                                                class="text-blue-600 hover:text-blue-900 mr-3"
+                                                onclick="openModal('customerShowModal-{{ $customer->id }}')"
+                                            >
+                                                View
+                                            </button>
                                             <button
                                                 type="button"
                                                 class="text-indigo-600 hover:text-indigo-900 mr-3"
@@ -102,6 +107,7 @@
                                     </tr>
 
                                     @include('components.customer-modals.customer-edit', ['customer' => $customer])
+                                    @include('components.customer-modals.customer-show', ['customer' => $customer])
 
                                 @empty
                                     <tr>

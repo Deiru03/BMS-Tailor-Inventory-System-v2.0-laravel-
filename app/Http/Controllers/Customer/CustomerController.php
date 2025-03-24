@@ -50,7 +50,11 @@ class CustomerController extends Controller
      */
     public function show(string $id)
     {
-        //
+        // Find the customer by ID
+        $customer = CustomersInfo::findOrFail($id);
+        
+        // Return the customer details view with customer data
+        return view('components.customer-modals.customer-show', compact('customer'));
     }
 
     /**
