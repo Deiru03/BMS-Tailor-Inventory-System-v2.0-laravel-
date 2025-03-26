@@ -31,7 +31,7 @@
                     {{ $slot }}
                 </div>
                 <div class="w-full md:w-1/2 bg-blue-50 flex items-center justify-center p-6">
-                    <img src="{{ asset('images/login.png') }}" alt="Login Image" 
+                    <img src="{{ asset('images/BMSlogo.ico') }}" alt="Login Image" 
                         class="max-w-full h-auto object-cover rounded-lg shadow-md border border-gray-200 transition-transform hover:scale-105 duration-300">
                 </div>
             </div>
