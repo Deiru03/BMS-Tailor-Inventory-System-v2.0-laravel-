@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ViewController;
 use App\Http\Controllers\Customer\CustomerController;
 use App\Http\Controllers\Supplier\SupplierController;
+use App\Http\Controllers\Material\MaterialsController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -23,12 +24,16 @@ Route::middleware('auth')->group(function () {
 //------------------------- Sidebar Buttons and Routes ------------------------- //
 Route::get('/customers', [ViewController::class, 'customer'])->name('ViewCustomer');
 Route::get('/suppliers', [ViewController::class, 'supplier'])->name('ViewSupplier');
+Route::get('/materials', [ViewController::class, 'material'])->name('ViewMaterial');
 
 // Customer Resource Controller
 Route::resource('customer-action', CustomerController::class);
 
 // Supplier Resource Controller
 Route::resource('supplier-action', SupplierController::class);
+
+// Material Resource Controller
+Route::resource('material-action', MaterialsController::class);
 
 
 require __DIR__.'/auth.php';

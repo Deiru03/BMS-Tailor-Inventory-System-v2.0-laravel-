@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Contracts\View\View;
 use App\Models\CustomersInfo;
 use App\Models\SupplierInfo;
-
+use App\Models\Material as MaterialInfo;
 
 
 class ViewController extends Controller
@@ -24,5 +24,12 @@ class ViewController extends Controller
         $suppliers = SupplierInfo::all();
 
         return view('suppliers', compact('suppliers'));
+    }
+
+    public function material(){
+        
+        $materials = MaterialInfo::all();
+
+        return view('materials', compact('materials'));
     }
 }
