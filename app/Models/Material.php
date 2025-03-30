@@ -13,6 +13,7 @@ class Material extends Model
         'name',
         'supplier_id',
         'category_id',
+        'supplier_type_name',
         'description',
         'type',
         'color',

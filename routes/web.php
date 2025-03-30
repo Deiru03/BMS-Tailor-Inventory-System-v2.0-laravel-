@@ -7,6 +7,9 @@ use App\Http\Controllers\Customer\CustomerController;
 use App\Http\Controllers\Supplier\SupplierController;
 use App\Http\Controllers\Material\MaterialsController;
 
+//Models 
+use App\Models\SupplierInfo;
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -34,6 +37,13 @@ Route::resource('supplier-action', SupplierController::class);
 
 // Material Resource Controller
 Route::resource('material-action', MaterialsController::class);
+Route::get('/supplier-types/{supplierId}', function ($supplierId) {
+    $supplier = SupplierInfo::with('types')->find($supplierId);
+    if ($supplier) {
+        return response()->json($supplier->types);
+    }
+    return response()->json([]);
+});
 
 
 require __DIR__.'/auth.php';

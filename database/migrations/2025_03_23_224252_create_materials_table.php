@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('name');
             $table->foreignId('supplier_id')->nullable()->constrained('supplier_infos');
             $table->foreignId('category_id')->nullable()->constrained('category_products');
+            $table->string('supplier_type_name')->nullable();
             $table->text('description')->nullable();
             
             // Material details - tailoring specific
