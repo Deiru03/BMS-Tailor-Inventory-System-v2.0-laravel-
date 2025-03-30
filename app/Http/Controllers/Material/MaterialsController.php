@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Material;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Material;
-use PhpParser\Node\Stmt\TryCatch;
+use App\Models\SupplierInfo;
 
 class MaterialsController extends Controller
 {
@@ -94,7 +94,9 @@ class MaterialsController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $material = Material::with('supplier')->findOrFail($id);
+    
+        return view('components.material-modals.material-show', compact('material'));
     }
 
     /**
@@ -102,7 +104,15 @@ class MaterialsController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        try {
+            $material = Material::with('supplier')->findOrFail($id);
+            $suppliers = SupplierInfo::all();
+
+            return view('components.material-modals.material-edit', compact('material', 'suppliers'));
+        } catch (\Throwable $th) {
+            return redirect()->route('ViewMaterial')
+                ->with('error', 'An error occurred while fetching the material: ' . $th->getMessage());
+        }
     }
 
     /**

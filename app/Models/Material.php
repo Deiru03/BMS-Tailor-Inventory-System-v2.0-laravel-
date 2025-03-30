@@ -31,4 +31,9 @@ class Material extends Model
         'status',
         'is_active',
     ];
+
+    public function supplier()
+    {
+        return $this->belongsTo(SupplierInfo::class, 'supplier_id', 'id');
+    }
 }
