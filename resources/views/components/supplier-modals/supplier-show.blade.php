@@ -69,7 +69,15 @@
                         </svg>
                         <h4 class="text-xs font-bold text-gray-500 uppercase tracking-wider">Supplier Type</h4>
                     </div>
-                    <p class="text-gray-800 font-medium">{{ $supplier->supplier_type }}</p>
+                    @if($supplier->types && $supplier->types->count())
+                        @foreach($supplier->types as $type)
+                            <span class="inline-block bg-gray-200 text-gray-800 text-xs px-2 py-1 rounded-full mr-1">
+                                {{ ucfirst($type->name) }}
+                            </span>
+                        @endforeach
+                    @else
+                        <span class="text-gray-500">No Types</span>
+                    @endif
                 </div>
                 
                 <!-- TIN -->

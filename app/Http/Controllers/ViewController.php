@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Contracts\View\View;
 use App\Models\CustomersInfo;
 use App\Models\SupplierInfo;
+use App\Models\SupplierType;
 use App\Models\Material as MaterialInfo;
 
 
@@ -19,11 +20,16 @@ class ViewController extends Controller
         return view('customers', compact('customers'));
     }
 
-    public function supplier(){
-        
-        $suppliers = SupplierInfo::all();
-
-        return view('suppliers', compact('suppliers'));
+    public function supplier()
+    {
+        // Fetch all suppliers with their types
+        $suppliers = SupplierInfo::with('types')->get();
+    
+        // Fetch all supplier types for the create form
+        $supplierTypes = SupplierType::all();
+    
+        // Pass both suppliers and supplier types to the view
+        return view('suppliers', compact('suppliers', 'supplierTypes'));
     }
 
     public function material(){

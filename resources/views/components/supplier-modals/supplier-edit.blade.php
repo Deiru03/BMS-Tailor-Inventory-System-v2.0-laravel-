@@ -107,18 +107,18 @@
                     <div class="mb-4">
                         <label for="supplier_type" class="block text-gray-700 text-sm font-bold mb-2">Supplier Type</label>
                         <select
-                            name="supplier_type"
+                            name="supplier_types[]"
                             id="supplier_type"
                             class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 focus:outline-none"
+                            multiple
                             required
                         >
-                            <option value="fabric" {{ old('supplier_type', $supplier->supplier_type) === 'fabric' ? 'selected' : '' }}>Fabric</option>
-                            <option value="accessories" {{ old('supplier_type', $supplier->supplier_type) === 'accessories' ? 'selected' : '' }}>Accessories</option>
-                            <option value="thread" {{ old('supplier_type', $supplier->supplier_type) === 'thread' ? 'selected' : '' }}>Thread</option>
-                            <option value="buttons" {{ old('supplier_type', $supplier->supplier_type) === 'buttons' ? 'selected' : '' }}>Buttons</option>
-                            <option value="zippers" {{ old('supplier_type', $supplier->supplier_type) === 'zippers' ? 'selected' : '' }}>Zippers</option>
-                            <option value="equipment" {{ old('supplier_type', $supplier->supplier_type) === 'equipment' ? 'selected' : '' }}>Equipment</option>
-                            <option value="other" {{ old('supplier_type', $supplier->supplier_type) === 'other' ? 'selected' : '' }}>Other</option>
+                            @foreach($supplierTypes as $type)
+                                <option value="{{ $type->id }}" 
+                                    {{ $supplier->types->contains($type->id) ? 'selected' : '' }}>
+                                    {{ ucfirst($type->name) }}
+                                </option>
+                            @endforeach
                         </select>
                     </div>
 

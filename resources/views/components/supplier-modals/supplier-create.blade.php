@@ -109,7 +109,7 @@
                     >
                 </div>
                 
-                <!-- Supplier Type -->
+                {{-- <!-- Supplier Type -->
                 <div>
                     <label for="supplier_type" class="block text-gray-700 text-sm font-medium mb-2">Supplier Type</label>
                     <select 
@@ -126,6 +126,22 @@
                         <option value="zippers">zippers</option>
                         <option value="equipment">equipment</option>
                         <option value="other">other</option>
+                    </select>
+                </div> --}}
+
+                <!-- Supplier Type -->
+                <div>
+                    <label for="supplier_type" class="block text-gray-700 text-sm font-medium mb-2">Supplier Type</label>
+                    <select 
+                        name="supplier_types[]" 
+                        id="supplier_type" 
+                        class="shadow-sm border border-gray-300 rounded-md w-full py-2.5 px-4 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors" 
+                        multiple
+                        required
+                    >
+                        @foreach($supplierTypes as $type)
+                            <option value="{{ $type->id }}">{{ $type->name }}</option>
+                        @endforeach
                     </select>
                 </div>
 

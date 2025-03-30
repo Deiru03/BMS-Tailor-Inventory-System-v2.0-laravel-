@@ -6,7 +6,7 @@
     </x-slot>
 
     <div class="py-12">
-        <div class="max-w-4xl mx-auto">
+        <div class="max-w-5xl mx-auto">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="text-gray-900">
                     <div class="flex justify-between items-center mb-6">
@@ -41,8 +41,8 @@
                         });
                     </script>
 
-                    <div class="overflow-x-auto">
-                        <table class="min-w-full bg-white border border-gray-200 text-sm">
+                    <div class="overflow-x-auto w-full">
+                        <table class="w-full bg-white border border-gray-200 text-sm">
                             <thead>
                                 <tr>
                                     <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
@@ -99,7 +99,15 @@
                                             {{ ucfirst($supplier->tin) }}
                                         </td>
                                         <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                                            {{ ucfirst($supplier->supplier_type) }} 
+                                            @if($supplier->types && $supplier->types->count())
+                                                @foreach($supplier->types as $type)
+                                                    <span class="inline-block bg-gray-200 text-gray-800 text-xs px-2 py-1 rounded-full mr-1">
+                                                        {{ ucfirst($type->name) }}
+                                                    </span>
+                                                @endforeach
+                                            @else
+                                                <span class="text-gray-500">No Types</span>
+                                            @endif
                                         </td>
                                         <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                                             <button

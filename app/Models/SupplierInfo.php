@@ -23,4 +23,9 @@ class SupplierInfo extends Model
         'is_active',
         'notes',
     ];
+
+    public function types()
+    {
+        return $this->belongsToMany(SupplierType::class, 'supplier_supplier_type', 'supplier_id', 'supplier_type_id');
+    }
 }
