@@ -152,7 +152,7 @@
                             </svg>
                             Add Product
                         </a>
-                        <a href="#"
+                        <a href="{{route('ViewProduct')}}"
                             class="flex items-center px-6 py-2 text-gray-700 hover:bg-blue-100 hover:text-blue-800 text-sm">
                             <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                                 xmlns="http://www.w3.org/2000/svg">

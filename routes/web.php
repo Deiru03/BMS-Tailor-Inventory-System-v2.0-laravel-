@@ -6,9 +6,11 @@ use App\Http\Controllers\ViewController;
 use App\Http\Controllers\Customer\CustomerController;
 use App\Http\Controllers\Supplier\SupplierController;
 use App\Http\Controllers\Material\MaterialsController;
+use App\Http\Controllers\Product\ProductController;
 
 //Models 
 use App\Models\SupplierInfo;
+use Illuminate\Contracts\View\View;
 
 Route::get('/', function () {
     return view('welcome');
@@ -28,6 +30,7 @@ Route::middleware('auth')->group(function () {
 Route::get('/customers', [ViewController::class, 'customer'])->name('ViewCustomer');
 Route::get('/suppliers', [ViewController::class, 'supplier'])->name('ViewSupplier');
 Route::get('/materials', [ViewController::class, 'material'])->name('ViewMaterial');
+Route::get('/products', [ViewController::class, 'product'])->name('ViewProduct');
 
 // Customer Resource Controller
 Route::resource('customer-action', CustomerController::class);
@@ -44,6 +47,9 @@ Route::get('/supplier-types/{supplierId}', function ($supplierId) {
     }
     return response()->json([]);
 });
+
+// Product Resource Controller
+Route::resource('product-action', ProductController::class);
 
 
 require __DIR__.'/auth.php';

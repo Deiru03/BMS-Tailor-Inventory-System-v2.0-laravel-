@@ -8,6 +8,8 @@ use App\Models\CustomersInfo;
 use App\Models\SupplierInfo;
 use App\Models\SupplierType;
 use App\Models\Material as MaterialInfo;
+use App\Models\Product as ProductInfo;
+use App\Models\CategoryProduct;
 
 
 class ViewController extends Controller
@@ -37,5 +39,14 @@ class ViewController extends Controller
         $materials = MaterialInfo::all();
 
         return view('materials', compact('materials'));
+    }
+
+    public function product(){
+
+        $products = ProductInfo::all();
+        $suppliers = SupplierInfo::all();
+        $categories = CategoryProduct::all();
+        
+        return view('products', compact('products', 'suppliers', 'categories'));
     }
 }
