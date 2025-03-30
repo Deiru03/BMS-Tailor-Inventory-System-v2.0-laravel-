@@ -98,7 +98,7 @@
                                         <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                                             {{ $material->reorder_level ?? 'N/A' }}
                                         </td>
-                                        <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                        <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-center">
                                             <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
                                             {{ $material->status === 'in_stock' ? 'bg-green-100 text-green-800' : 
                                                ($material->status === 'low_stock' ? 'bg-yellow-100 text-yellow-800' : 

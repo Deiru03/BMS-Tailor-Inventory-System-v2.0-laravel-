@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Material;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Material;
+use PhpParser\Node\Stmt\TryCatch;
 
 class MaterialsController extends Controller
 {
@@ -117,6 +118,16 @@ class MaterialsController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        try {
+            $material = Material::findOrFail($id);
+            $material->delete();
+    
+            return redirect()->route('ViewMaterial')
+                ->with('success', 'Material deleted successfully');
+        } catch (\Throwable $th) {
+            return redirect()->route('ViewMaterial')
+                ->with('error', 'An error occurred while deleting the material: ' . $th->getMessage());
+        }
+       
     }
 }
