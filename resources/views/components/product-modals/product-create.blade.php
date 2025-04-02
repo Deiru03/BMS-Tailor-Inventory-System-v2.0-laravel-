@@ -15,6 +15,13 @@
                 <div class="mb-6 p-4 bg-gray-50 rounded-lg">
                     <h4 class="text-lg font-medium text-gray-700 mb-3 border-b pb-2">Product Information</h4>
                     <div class="grid grid-cols-2 gap-4">
+
+                        @php
+                            // Fetch all products and their sizes
+                            $products = \App\Models\Product::all();
+                            $existingSizes = $products->pluck('size')->toArray(); // Get all existing sizes
+                        @endphp
+
                         <!-- Product Code -->
                         <div class="form-group">
                             <label for="product_code" class="block text-sm font-medium text-gray-700 mb-1">Product Code</label>
@@ -102,6 +109,18 @@
                             <label for="size" class="block text-sm font-medium text-gray-700 mb-1">Size</label>
                             <input type="text" name="size" id="size" class="form-control w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
                         </div>
+                        {{-- <div class="form-group">
+                            <label for="size" class="block text-sm font-medium text-gray-700 mb-1">Size</label>
+                            <select name="size" id="size" class="form-control w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+                                <option value="">Select a Size</option>
+                                @foreach(['Small', 'Medium', 'Large', 'Extra Large'] as $sizeOption)
+                                    <option value="{{ $sizeOption }}" 
+                                        @if(in_array($sizeOption, $existingSizes)) disabled @endif>
+                                        {{ $sizeOption }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div> --}}
 
                         <!-- Material -->
                         <div class="form-group">
@@ -156,6 +175,49 @@
                     </button>
                 </div>
             </form>
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    const productNameInput = document.getElementById('name');
+                    const sizeDropdown = document.getElementById('size');
+            
+                    productNameInput.addEventListener('input', function () {
+                        const productName = productNameInput.value.toLowerCase();
+            
+                        // Fetch existing products and sizes from PHP
+                        const products = @json($products);
+            
+                        // Clear the size dropdown
+                        sizeDropdown.innerHTML = '<option value="">Select a Size</option>';
+            
+                        // Check if the product name exists in the database
+                        const matchingProduct = products.find(product => product.name.toLowerCase() === productName);
+            
+                        if (matchingProduct) {
+                            // Disable sizes that are already used for this product
+                            const usedSize = matchingProduct.size;
+            
+                            ['Small', 'Medium', 'Large', 'Extra Large'].forEach(sizeOption => {
+                                const isDisabled = sizeOption === usedSize;
+                                const option = document.createElement('option');
+                                option.value = sizeOption;
+                                option.textContent = sizeOption;
+                                if (isDisabled) {
+                                    option.disabled = true;
+                                }
+                                sizeDropdown.appendChild(option);
+                            });
+                        } else {
+                            // If no matching product, enable all sizes
+                            ['Small', 'Medium', 'Large', 'Extra Large'].forEach(sizeOption => {
+                                const option = document.createElement('option');
+                                option.value = sizeOption;
+                                option.textContent = sizeOption;
+                                sizeDropdown.appendChild(option);
+                            });
+                        }
+                    });
+                });
+            </script>
         </div>
     </div>
 </div>

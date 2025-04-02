@@ -270,7 +270,7 @@
                             <!-- Date and Time -->
                             <div class="text-center -mt-3">
                                 <h4>{{ date('F d, Y') }}</h4>
-                                <span>{{ date('l') }}</span><span id="currentTime">{{ date('h:i A') }}</span>
+                                <span>{{ date('l') }} - </span><span id="currentTime">{{ date('h:i A') }}</span>
                                 <script>
                                     function updateTime() {
                                         const timeElement = document.getElementById('currentTime');
@@ -309,6 +309,10 @@
                                     <x-slot name="content">
                                         <x-dropdown-link :href="route('profile.edit')">
                                             {{ __('Profile') }}
+                                        </x-dropdown-link>
+
+                                        <x-dropdown-link :href="route('ViewSettings')">
+                                            {{ __('Settings') }}
                                         </x-dropdown-link>
 
                                         <!-- Authentication -->
