@@ -7,6 +7,7 @@ use App\Http\Controllers\Customer\CustomerController;
 use App\Http\Controllers\Supplier\SupplierController;
 use App\Http\Controllers\Material\MaterialsController;
 use App\Http\Controllers\Product\ProductController;
+use App\Http\Controllers\SettingController;;
 
 //Models 
 use App\Models\SupplierInfo;
@@ -31,6 +32,7 @@ Route::get('/customers', [ViewController::class, 'customer'])->name('ViewCustome
 Route::get('/suppliers', [ViewController::class, 'supplier'])->name('ViewSupplier');
 Route::get('/materials', [ViewController::class, 'material'])->name('ViewMaterial');
 Route::get('/products', [ViewController::class, 'product'])->name('ViewProduct');
+Route::get('/settings', [SettingController::class, 'index'])->name('ViewSettings');
 
 // Customer Resource Controller
 Route::resource('customer-action', CustomerController::class);
