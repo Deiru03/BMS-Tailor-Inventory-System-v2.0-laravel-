@@ -43,6 +43,9 @@ class ViewController extends Controller
 
     public function product(){
 
+        // Call the updateLowStockStatus method before fetching products
+        ProductInfo::updateLowStockStatus();
+
         $products = ProductInfo::all();
         $suppliers = SupplierInfo::all();
         $categories = CategoryProduct::all();

@@ -4,6 +4,7 @@
     $suppliers = App\Models\SupplierInfo::all();
     $products = App\Models\Product::all();
     $categories = App\Models\CategoryProduct::all();
+    $productTypes = App\Models\ProductType::all();
 @endphp
 <div id="productModal" class="fixed inset-0 bg-gray-800 bg-opacity-30 overflow-y-auto h-full w-full hidden transition-opacity duration-300 ease-in-out" style="z-index: 100;">
     <div class="relative top-20 mx-auto p-6 border border-gray-200 w-full max-w-3xl shadow-2xl rounded-lg bg-white max-h-[85vh] overflow-y-auto transform transition-all">
@@ -41,7 +42,7 @@
                         </div>
 
                         <!-- Category -->
-                        <div class="form-group">
+                        {{-- <div class="form-group hidden">
                             <label for="category_id" class="block text-sm font-medium text-gray-700 mb-1">Category</label>
                             <select name="category_id" id="category_id" class="form-control w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
                                 <option value="">Select a Category</option>
@@ -49,6 +50,25 @@
                                     <option value="{{ $category->id }}">{{ $category->name }}</option>
                                 @endforeach
                             </select>
+                        </div> --}}
+                        <div class="form-group">
+                            <label for="product_type" class="block text-sm font-medium text-gray-700 mb-1">Product Type</label>
+                            <div class="relative">
+                                <input type="text" id="product_type_search" class="form-control w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Search Product Type..." autocomplete="off">
+                                <select name="product_type" id="product_type" class="hidden">
+                                    <option value="">Select a Category</option>
+                                    @foreach($productTypes as $productType)
+                                        <option value="{{ $productType->name }}">{{ $productType->name }}</option>
+                                    @endforeach
+                                </select>
+                                <div id="product_type_dropdown" class="absolute z-10 w-full mt-1 bg-white shadow-lg max-h-60 rounded-md py-1 text-base overflow-auto hidden">
+                                    <div class="px-3 py-2 text-gray-400 cursor-default hover:bg-gray-100" data-value="">Select a Category</div>
+                                    @foreach($productTypes as $productType)
+                                        <div class="px-3 py-2 cursor-pointer hover:bg-gray-100" data-value="{{ $productType->name }}">{{ $productType->name }}</div>
+                                    @endforeach
+                                </div>
+                            </div>
+                           {{-- The Script is in the VITE --}}
                         </div>
 
                         <!-- Supplier -->
@@ -89,13 +109,19 @@
                         <!-- Unit Price -->
                         <div class="form-group">
                             <label for="unit_price" class="block text-sm font-medium text-gray-700 mb-1">Unit Price</label>
-                            <input type="number" name="unit_price" id="unit_price" class="form-control w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" min="0" step="0.01" required>
+                            <div class="relative">
+                                <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500">₱</span>
+                                <input type="number" name="unit_price" id="unit_price" class="form-control w-full px-3 py-2 pl-8 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" min="0" step="0.01" required>
+                            </div>
                         </div>
 
                         <!-- Cost Price -->
                         <div class="form-group">
                             <label for="cost_price" class="block text-sm font-medium text-gray-700 mb-1">Cost Price</label>
-                            <input type="number" name="cost_price" id="cost_price" class="form-control w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" min="0" step="0.01">
+                            <div class="relative">
+                                <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500">₱</span>
+                                <input type="number" name="cost_price" id="cost_price" class="form-control w-full px-3 py-2 pl-8 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" min="0" step="0.01">
+                            </div>
                         </div>
                     </div>
                 </div>

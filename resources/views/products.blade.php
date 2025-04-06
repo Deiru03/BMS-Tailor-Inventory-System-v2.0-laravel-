@@ -88,7 +88,7 @@
                                             {{ $product->name }}
                                         </td>
                                         <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                                            {{ $product->type ?? 'N/A' }}
+                                            {{ $product->product_type ?? 'N/A' }}
                                         </td>
                                         <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                                             {{ $product->supplier->name ?? 'N/A' }}
