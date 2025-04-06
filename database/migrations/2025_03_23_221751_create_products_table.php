@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('product_code')->unique();
             $table->string('name');
             $table->foreignId('category_id')->constrained('category_products');
+            $table->string('ProductType')->nullable(); // e.g., fabric, thread, etc.
             $table->foreignId('supplier_id')->nullable()->constrained('supplier_infos');
             $table->text('description')->nullable();
             
