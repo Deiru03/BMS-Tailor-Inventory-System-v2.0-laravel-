@@ -41,6 +41,21 @@ class SettingController extends Controller
         //
     }
 
+    public function productTypeStore(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'nullable|string|max:500',
+        ]);
+
+        $productType = new ProductType();
+        $productType->name = $request->input('name');
+        $productType->description = $request->input('description');
+        $productType->save();
+
+        return redirect()->back()->with('success', 'Product type created successfully.');
+    }
+
     /**
      * Display the specified resource.
      */
@@ -57,6 +72,16 @@ class SettingController extends Controller
         //
     }
 
+    public function productTypeEdit(string $id)
+    {
+        try {
+            $productType = ProductType::findOrFail($id);
+            return view('settings.product-settings-form', compact('productType'));
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('error', 'Failed to fetch product type: ' . $th->getMessage());
+        }
+    }
+
     /**
      * Update the specified resource in storage.
      */
@@ -65,11 +90,38 @@ class SettingController extends Controller
         //
     }
 
+    public function productTypeUpdate(Request $request, string $id)
+    {
+        try {
+            
+            $request->validate([
+                'name' => 'required|string|max:255',
+                'description' => 'nullable|string|max:500',
+            ]);
+    
+            $productType = ProductType::findOrFail($id);
+            $productType->name = $request->input('name');
+            $productType->description = $request->input('description');
+            $productType->save();
+    
+            return redirect()->back()->with('success', 'Product type updated successfully.');
+
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('error', 'Failed to update product type: ' . $th->getMessage());
+        }
+    }
+
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(string $id)
     {
         //
+    }
+    public function productTypeDestroy(string $id)
+    {
+        $productType = ProductType::findOrFail($id); // Find the product type by ID
+        $productType->delete(); // Delete the product type
+        return redirect()->back()->with('success', 'Product type deleted successfully.');
     }
 }

@@ -41,7 +41,7 @@
                         });
                     </script>
 
-                    <div class="overflow-x-auto w-full">
+                    <div class="overflow-x-auto w-full border border-blue-200">
                         <table class="w-full bg-white border border-gray-200 text-sm">
                             <thead>
                                 <tr>
