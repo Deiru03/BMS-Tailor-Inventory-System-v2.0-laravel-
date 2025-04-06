@@ -94,7 +94,7 @@
                                             {{ $product->supplier->name ?? 'N/A' }}
                                         </td>
                                         <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                                            {{ $product->stock_quantity }} {{ $product->unit }}
+                                            {{ number_format($product->stock_quantity, 0) }} - {{ $product->unit }}
                                         </td>
                                         <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                                             {{ number_format($product->unit_price, 2) }}
