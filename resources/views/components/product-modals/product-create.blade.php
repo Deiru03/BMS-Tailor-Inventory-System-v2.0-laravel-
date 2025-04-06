@@ -1,4 +1,10 @@
 <!-- filepath: c:\xampp\htdocs\• Other-Projects •\bms_tailor\resources\views\components\product-modals\product-create.blade.php -->
+@php
+    // Include the modals for customer and supplier
+    $suppliers = App\Models\SupplierInfo::all();
+    $products = App\Models\Product::all();
+    $categories = App\Models\CategoryProduct::all();
+@endphp
 <div id="productModal" class="fixed inset-0 bg-gray-800 bg-opacity-30 overflow-y-auto h-full w-full hidden transition-opacity duration-300 ease-in-out" style="z-index: 100;">
     <div class="relative top-20 mx-auto p-6 border border-gray-200 w-full max-w-3xl shadow-2xl rounded-lg bg-white max-h-[85vh] overflow-y-auto transform transition-all">
         <div class="mt-2">

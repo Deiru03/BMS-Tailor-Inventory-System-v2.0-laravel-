@@ -49,4 +49,16 @@ class ViewController extends Controller
         
         return view('products', compact('products', 'suppliers', 'categories'));
     }
+
+    public function __construct()
+    {
+        $products = ProductInfo::all();
+        $suppliers = SupplierInfo::all();
+        $categories = CategoryProduct::all();
+        
+        // Share data with all views
+        view()->share('products', $products);
+        view()->share('suppliers', $suppliers);
+        view()->share('categories', $categories);
+    }
 }
