@@ -26,7 +26,11 @@
 
                     <div class="form-group">
                         <p class="block text-sm font-medium text-gray-600 mb-1">Category</p>
+<<<<<<< HEAD
                         <p class="text-indigo-800 font-medium">{{ $product->product_type ?? 'Not specified' }}</p>
+=======
+                        <p class="text-indigo-800 font-medium">{{ $product->category->name ?? 'Not specified' }}</p>
+>>>>>>> 1f96cd4701455ad1ee920ea188d62e40dbc08dfc
                     </div>
 
                     <div class="form-group col-span-2">
@@ -40,6 +44,7 @@
             <div class="mb-6 p-5 bg-gradient-to-r from-purple-50 to-pink-50 rounded-lg shadow-sm border border-purple-100">
                 <h4 class="text-lg font-medium text-purple-700 mb-3 border-b border-purple-100 pb-2">Supplier Information</h4>
                 <div class="grid grid-cols-2 gap-4">
+<<<<<<< HEAD
                     @php
                         $supName = App\Models\SupplierInfo::where('id', $product->supplier_id)->first();
                         $supName = $supName ? $supName->name : 'Not specified';
@@ -51,11 +56,20 @@
                     <div class="form-group">
                         <p class="block text-sm font-medium text-gray-600 mb-1">Supplier</p>
                         <p class="text-purple-800 font-medium">{{ $supName }}</p>
+=======
+                    <div class="form-group">
+                        <p class="block text-sm font-medium text-gray-600 mb-1">Supplier</p>
+                        <p class="text-purple-800 font-medium">{{ $product->supplier ? $product->supplier->name : 'Not specified' }}</p>
+>>>>>>> 1f96cd4701455ad1ee920ea188d62e40dbc08dfc
                     </div>
 
                     <div class="form-group">
                         <p class="block text-sm font-medium text-gray-600 mb-1">Supplier Contact</p>
+<<<<<<< HEAD
                         <p class="text-purple-800 font-medium">{{ $supPhone }} | {{ $supEmail ?: 'Not specified' }}</p>
+=======
+                        <p class="text-purple-800 font-medium">{{ $product->supplier ? $product->supplier->phone : 'Not specified' }}</p>
+>>>>>>> 1f96cd4701455ad1ee920ea188d62e40dbc08dfc
                     </div>
                 </div>
             </div>
