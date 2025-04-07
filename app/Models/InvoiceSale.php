@@ -10,45 +10,43 @@ class InvoiceSale extends Model
     protected $table = 'invoice_sales';
 
     protected $fillable = [
-        'invoice_id',
-        'sale_item_id',
-        'quantity',
-        'unit_price',
-        'subtotal',
+        'sale_id',
+        'invoice_number',
+        'total_amount',
+        'issued_at',
+        'notes',
         'status',
     ];
 
-    public function invoice()
+    /**
+     * Get the sale that owns the invoice.
+     */
+    public function sale()
     {
-        return $this->belongsTo(Invoice::class, 'invoice_id');
+        return $this->belongsTo(Sale::class);
     }
 
-    public function saleItem()
+    /**
+     * Get the sale items for this invoice through the sale.
+     */
+    public function saleItems()
     {
-        return $this->belongsTo(SaleItem::class, 'sale_item_id');
+        return $this->hasManyThrough(SaleItem::class, Sale::class);
     }
-    public function product()
+    
+    /**
+     * Get the customer info through the sale.
+     */
+    public function customersInfo()
     {
-        return $this->belongsTo(Product::class, 'product_id');
+        return $this->hasOneThrough(CustomersInfo::class, Sale::class, 'id', 'id', 'sale_id', 'customer_id');
     }
+    
+    /**
+     * Get all returns related to this invoice.
+     */
     public function returnSales()
     {
         return $this->hasMany(ReturnSales::class, 'invoice_sale_id');
-    }
-    public function sale()
-    {
-        return $this->belongsTo(Sale::class, 'sale_id');
-    }
-    public function customersInfo()
-    {
-        return $this->belongsTo(CustomersInfo::class, 'customer_id');
-    }
-    public function saleItems()
-    {
-        return $this->hasMany(SaleItem::class, 'sale_item_id');
-    }
-    public function invoiceSales()
-    {
-        return $this->hasMany(InvoiceSale::class, 'invoice_id');
     }
 }
