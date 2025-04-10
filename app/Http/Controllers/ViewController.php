@@ -10,6 +10,9 @@ use App\Models\SupplierType;
 use App\Models\Material as MaterialInfo;
 use App\Models\Product as ProductInfo;
 use App\Models\CategoryProduct;
+use App\Models\Sale;
+use App\Models\SaleItem;
+use App\Models\InvoiceSale;
 
 
 class ViewController extends Controller
@@ -53,15 +56,33 @@ class ViewController extends Controller
         return view('products', compact('products', 'suppliers', 'categories'));
     }
 
-    public function __construct()
-    {
+    public function sale() {
+        $sales = Sale::with(['customersInfo', 'invoiceSales'])->get();
+        $saleItems = SaleItem::with(['productInfo', 'invoiceSale'])->get();
+        $invoiceSales = InvoiceSale::with(['saleItems', 'customersInfo'])->get();
+        $customers = CustomersInfo::all();
         $products = ProductInfo::all();
         $suppliers = SupplierInfo::all();
-        $categories = CategoryProduct::all();
-        
-        // Share data with all views
-        view()->share('products', $products);
-        view()->share('suppliers', $suppliers);
-        view()->share('categories', $categories);
+
+        return view('sales', [
+            'sales' => $sales,
+            'saleItems' => $saleItems, 
+            'invoiceSales' => $invoiceSales,
+            'customers' => $customers,
+            'products' => $products,
+            'suppliers' => $suppliers
+        ]);
     }
+
+    // public function __construct()
+    // {
+    //     $products = ProductInfo::all();
+    //     $suppliers = SupplierInfo::all();
+    //     $categories = CategoryProduct::all();
+        
+    //     // Share data with all views
+    //     view()->share('products', $products);
+    //     view()->share('suppliers', $suppliers);
+    //     view()->share('categories', $categories);
+    // }
 }
