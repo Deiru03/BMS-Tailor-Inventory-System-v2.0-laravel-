@@ -12,8 +12,14 @@
 
             <!-- Centered New Sale Button with SVG -->
             <div class="flex justify-center mb-6">
-                <button onclick="openSaleModal('newSaleModal'); return false;" class="flex items-center px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white text-lg font-medium rounded-lg shadow-md transition duration-150 ease-in-out transform hover:scale-105">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                <button onclick="openSaleModal('newSaleModal'); return false;" 
+                    class="flex items-center justify-center px-10 py-3.5 min-w-[220px] 
+                    bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 
+                    text-white text-lg font-semibold rounded-xl shadow-lg 
+                    border border-blue-400 border-opacity-20
+                    transition-all duration-200 ease-in-out transform hover:scale-102 hover:-translate-y-1
+                    focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-3" viewBox="0 0 20 20" fill="currentColor">
                         <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
                     </svg>
                     New Sale

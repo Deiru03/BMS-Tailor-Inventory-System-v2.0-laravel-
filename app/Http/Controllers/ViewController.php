@@ -17,6 +17,44 @@ use App\Models\InvoiceSale;
 
 class ViewController extends Controller
 {
+    public function dashboard(){
+        // Fetch key metrics
+        $totalSales = Sale::sum('total_amount');
+        $totalCustomers = CustomersInfo::count();
+        $totalProducts = ProductInfo::count();
+        $pendingPayments = Sale::where('payment_status', '!=', 'paid')->sum('balance');
+
+        // Fetch recent sales
+        $recentSales = Sale::with('customer')->latest()->take(5)->get();
+
+        // Fetch product stocks
+        // Get 5 products with the lowest stock quantities (ordered from lowest to highest)
+        $productStocks = ProductInfo::select('name', 'stock_quantity', 'unit_price')
+            ->orderBy('stock_quantity', 'asc')
+            ->take(5)
+            ->get();
+
+        // Prepare data for sales chart
+        $salesData = Sale::selectRaw('DATE(created_at) as date, SUM(total_amount) as total')
+            ->groupBy('date')
+            ->orderBy('date', 'asc')
+            ->get();
+
+        $salesDates = $salesData->pluck('date');
+        $salesAmounts = $salesData->pluck('total');
+
+        return view('dashboard', compact(
+            'totalSales',
+            'totalCustomers',
+            'totalProducts',
+            'pendingPayments',
+            'recentSales',
+            'productStocks',
+            'salesDates',
+            'salesAmounts'
+        ));
+    }
+
     //------------------------- Sidebar Buttons and Routes ------------------------- //
     public function customer(){
 
@@ -82,7 +120,7 @@ class ViewController extends Controller
         }
 
         // Get the filtered results with pagination
-        $sales = $query->orderBy('created_at', 'desc')->paginate(15);
+        $sales = $query->orderBy('created_at', 'desc')->paginate(10);
 
         // Fetch additional data for the view
         $customers = CustomersInfo::all();

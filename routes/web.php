@@ -40,6 +40,7 @@ route::delete('/settings/product-action/destroy/{id}', [SettingController::class
 Route::match(['get', 'post'], '/settings/company-info', [SettingController::class, 'companyInfo'])->name('settings.company-info');
 
 //------------------------- Sidebar Buttons and Routes ------------------------- //
+Route::get('/dashboard', [ViewController::class, 'dashboard'])->name('dashboard');
 Route::get('/customers', [ViewController::class, 'customer'])->name('ViewCustomer');
 Route::get('/suppliers', [ViewController::class, 'supplier'])->name('ViewSupplier');
 Route::get('/materials', [ViewController::class, 'material'])->name('ViewMaterial');
