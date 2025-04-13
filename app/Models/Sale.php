@@ -16,6 +16,9 @@ class Sale extends Model
         'custom_id',
         'customer_id',
         'total_amount',
+        'amount_paid',  
+        'change_due',   
+        'balance',      
         'payment_status',
         'status',
     ];

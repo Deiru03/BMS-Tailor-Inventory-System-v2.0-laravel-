@@ -37,6 +37,7 @@ route::post('/settings/product-action-store', [SettingController::class, 'produc
 route::get('/settings/product-action-edit', [SettingController::class, 'productTypeEdit'])->name('product-type.edit');
 route::put('/settings/product-action/update/{id}', [SettingController::class, 'productTypeUpdate'])->name('product-type.update');
 route::delete('/settings/product-action/destroy/{id}', [SettingController::class, 'productTypeDestroy'])->name('product-type.destroy');
+Route::match(['get', 'post'], '/settings/company-info', [SettingController::class, 'companyInfo'])->name('settings.company-info');
 
 //------------------------- Sidebar Buttons and Routes ------------------------- //
 Route::get('/customers', [ViewController::class, 'customer'])->name('ViewCustomer');
@@ -68,4 +69,8 @@ Route::resource('product-action', ProductController::class);
 // Sale Resource Controller
 Route::resource('sale-action', SaleController::class);
 Route::resource('invoice-action', InvoiceController::class);
+// Route for showing an invoice by sale ID
+Route::get('/invoice-actions/sale/{invoiceId}', [InvoiceController::class, 'showDetail'])->name('invoice-action.showDetail');
+
+
 require __DIR__.'/auth.php';

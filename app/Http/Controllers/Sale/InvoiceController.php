@@ -47,8 +47,7 @@ class InvoiceController extends Controller
         // Check if an invoice already exists for this sale
         $existingInvoice = InvoiceSale::where('sale_id', $sale->id)->first();
         if ($existingInvoice) {
-            // Redirect to the existing invoice view
-            return view('components.sale-modals.invoice.invoice-detailed', ['invoice' => $existingInvoice])
+            return redirect()->route('invoice-action.show', $existingInvoice->id)
                 ->with('success', 'Invoice already exists.');
         }
     
@@ -60,9 +59,20 @@ class InvoiceController extends Controller
             'issued_at' => now(),
         ]);
     
-        // Redirect to the new invoice view
-        return view('components.sale-modals.invoice.invoice-detailed', ['invoice' => $invoice])
+        return view('components.sale-modals.invoice.invoice-detailed', compact('invoice'))->with('invoice_id', $invoice->id)
             ->with('success', 'Invoice generated successfully.');
+    }
+
+    /**
+     * Show the form for displaying the specified resource.
+     */
+    public function showDetail($invoiceId)
+    {
+        // dd($invoiceId);
+    
+        $invoice = InvoiceSale::with('sale.customer', 'sale.saleItems.product')->findOrFail($invoiceId);
+    
+        return view('components.sale-modals.invoice.invoice-detailed', compact('invoice'));
     }
 
     /**

@@ -56,18 +56,41 @@ class ViewController extends Controller
         return view('products', compact('products', 'suppliers', 'categories'));
     }
 
-    public function sale() {
-        $sales = Sale::with(['customer', 'invoiceSales'])->get();
-        $saleItems = SaleItem::with(['product'])->get(); // Removed 'invoiceSale' if not needed
-        $invoiceSales = InvoiceSale::with(['sale'])->get(); // Ensure 'sale' relationship exists in InvoiceSale
+    public function sale(request $request): View{
+        // Start with a base query
+        $query = Sale::with(['customer', 'invoiceSales']);
+
+        // Apply filters
+        if ($request->filled('date_from')) {
+            $query->whereDate('created_at', '>=', $request->date_from);
+        }
+
+        if ($request->filled('date_to')) {
+            $query->whereDate('created_at', '<=', $request->date_to);
+        }
+
+        if ($request->filled('payment_status')) {
+            $query->where('payment_status', $request->payment_status);
+        }
+
+        if ($request->filled('invoice_status')) {
+            if ($request->invoice_status === 'has_invoice') {
+                $query->has('invoiceSales');
+            } elseif ($request->invoice_status === 'no_invoice') {
+                $query->doesntHave('invoiceSales');
+            }
+        }
+
+        // Get the filtered results with pagination
+        $sales = $query->orderBy('created_at', 'desc')->paginate(15);
+
+        // Fetch additional data for the view
         $customers = CustomersInfo::all();
         $products = ProductInfo::all();
         $suppliers = SupplierInfo::all();
-    
+
         return view('sales', [
             'sales' => $sales,
-            'saleItems' => $saleItems,
-            'invoiceSales' => $invoiceSales,
             'customers' => $customers,
             'products' => $products,
             'suppliers' => $suppliers

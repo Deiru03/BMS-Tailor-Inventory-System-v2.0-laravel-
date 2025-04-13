@@ -8,6 +8,7 @@ use App\Http\Requests\ProfileUpdateRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 
 class SettingController extends Controller
@@ -123,5 +124,41 @@ class SettingController extends Controller
         $productType = ProductType::findOrFail($id); // Find the product type by ID
         $productType->delete(); // Delete the product type
         return redirect()->back()->with('success', 'Product type deleted successfully.');
+    }
+
+    /////////////////////////////////////////// Common Functions - Company Info ///////////////////////////////////////////
+    public function companyInfo(Request $request)
+    {
+        if ($request->isMethod('post')) {
+            $request->validate([
+                'company_name' => 'required|string|max:255',
+                'address' => 'required|string|max:500',
+                'phone' => 'required|string|max:20',
+            ]);
+
+            // Save the company information to a JSON file or database
+            $companyInfo = [
+                'company_name' => $request->input('company_name'),
+                'address' => $request->input('address'),
+                'phone' => $request->input('phone'),
+            ];
+
+            Storage::disk('local')->put('company_info.json', json_encode($companyInfo));
+
+            return redirect()->back()->with('success', 'Company information updated successfully.');
+        }
+
+        // Retrieve the company information
+        $companyInfo = json_decode(Storage::disk('local')->get('company_info.json'), true);
+
+        return view('settings.partials.company-info', compact('companyInfo'));
+    }
+
+    public function getCompanyInfo()
+    {
+        // Retrieve the company information from the JSON file
+        $companyInfo = json_decode(Storage::disk('local')->get('company_info.json'), true);
+
+        return view('settings.partials.company-info', compact('companyInfo'));
     }
 }

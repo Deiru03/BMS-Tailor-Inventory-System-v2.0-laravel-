@@ -61,6 +61,26 @@
                 <p id="totalAmount" class="text-2xl font-bold text-gray-900">0.00</p>
             </div>
 
+            <!-- Payment Details Section -->
+            <div class="mt-6">
+                <h4 class="text-lg font-medium text-gray-900">Payment Details</h4>
+
+                <div class="mt-4">
+                    <label for="amount_paid" class="block text-sm font-medium text-gray-700">Amount Paid</label>
+                    <input type="number" name="amount_paid" id="amount_paid" class="w-full border-gray-300 rounded-md shadow-sm" step="0.01" min="0" required>
+                </div>
+
+                <div class="mt-4">
+                    <label for="change_due" class="block text-sm font-medium text-gray-700">Change Due</label>
+                    <p id="change_due" class="text-gray-900 font-semibold">0.00</p>
+                </div>
+
+                <div class="mt-4">
+                    <label for="balance" class="block text-sm font-medium text-gray-700">Balance (if partial payment)</label>
+                    <p id="balance" class="text-gray-900 font-semibold">0.00</p>
+                </div>
+            </div>
+
             <!-- Submit Button -->
             <div class="mt-6 flex justify-end space-x-3">
                 <button type="button" onclick="closeModal('newSaleModal')" class="px-4 py-2 bg-gray-300 text-gray-800 rounded hover:bg-gray-400">Cancel</button>
@@ -134,4 +154,15 @@
 
         document.getElementById('totalAmount').textContent = totalAmount.toFixed(2);
     }
+
+    document.getElementById('amount_paid').addEventListener('input', function () {
+        const totalAmount = parseFloat(document.getElementById('totalAmount').textContent || 0);
+        const amountPaid = parseFloat(this.value || 0);
+
+        const changeDue = amountPaid > totalAmount ? (amountPaid - totalAmount).toFixed(2) : '0.00';
+        const balance = amountPaid < totalAmount ? (totalAmount - amountPaid).toFixed(2) : '0.00';
+
+        document.getElementById('change_due').textContent = changeDue;
+        document.getElementById('balance').textContent = balance;
+    });
 </script>
