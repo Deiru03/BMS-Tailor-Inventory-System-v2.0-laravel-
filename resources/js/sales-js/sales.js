@@ -72,3 +72,57 @@ document.getElementById('amount_paid').addEventListener('input', function () {
     document.getElementById('change_due').textContent = changeDue;
     document.getElementById('balance').textContent = balance;
 });
+
+
+
+/////////////////////////////////// Live Search of Customer Name and Product Name ///////////////////////////////////////
+document.addEventListener('DOMContentLoaded', function () {
+    // Generic function to handle dropdown search functionality
+    function setupDropdownSearch(inputId, dropdownId, hiddenSelectId) {
+        const searchInput = document.getElementById(inputId);
+        const dropdown = document.getElementById(dropdownId);
+        const hiddenSelect = document.getElementById(hiddenSelectId);
+
+        // Show dropdown on focus
+        searchInput.addEventListener('focus', function () {
+            dropdown.classList.remove('hidden');
+        });
+
+        // Filter items as user types
+        searchInput.addEventListener('input', function () {
+            const searchValue = this.value.toLowerCase();
+            const items = dropdown.querySelectorAll('div');
+
+            items.forEach(item => {
+                const text = item.textContent.toLowerCase();
+                if (text.includes(searchValue) || item.dataset.value === "") {
+                    item.classList.remove('hidden');
+                } else {
+                    item.classList.add('hidden');
+                }
+            });
+        });
+
+        // Handle item selection
+        dropdown.querySelectorAll('div').forEach(item => {
+            item.addEventListener('click', function () {
+                searchInput.value = this.textContent;
+                hiddenSelect.value = this.dataset.value;
+                dropdown.classList.add('hidden');
+            });
+        });
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function (e) {
+            if (!searchInput.contains(e.target) && !dropdown.contains(e.target)) {
+                dropdown.classList.add('hidden');
+            }
+        });
+    }
+
+    // Setup dropdown search for Customer
+    setupDropdownSearch('customer_search', 'customer_dropdown', 'customer_id');
+
+    // Setup dropdown search for Product
+    setupDropdownSearch('product_search', 'product_dropdown', 'product_id');
+});
