@@ -7,6 +7,9 @@ use App\Http\Controllers\Customer\CustomerController;
 use App\Http\Controllers\Supplier\SupplierController;
 use App\Http\Controllers\Material\MaterialsController;
 use App\Http\Controllers\Product\ProductController;
+use App\Http\Controllers\Sale\SaleController as SaleController;
+use App\Http\Controllers\Sale\InvoiceController;
+use App\Http\Controllers\Sale\ReturnController;
 use App\Http\Controllers\SettingController;;
 
 //Models 
@@ -34,13 +37,16 @@ route::post('/settings/product-action-store', [SettingController::class, 'produc
 route::get('/settings/product-action-edit', [SettingController::class, 'productTypeEdit'])->name('product-type.edit');
 route::put('/settings/product-action/update/{id}', [SettingController::class, 'productTypeUpdate'])->name('product-type.update');
 route::delete('/settings/product-action/destroy/{id}', [SettingController::class, 'productTypeDestroy'])->name('product-type.destroy');
+Route::match(['get', 'post'], '/settings/company-info', [SettingController::class, 'companyInfo'])->name('settings.company-info');
 
 //------------------------- Sidebar Buttons and Routes ------------------------- //
+Route::get('/dashboard', [ViewController::class, 'dashboard'])->name('dashboard');
 Route::get('/customers', [ViewController::class, 'customer'])->name('ViewCustomer');
 Route::get('/suppliers', [ViewController::class, 'supplier'])->name('ViewSupplier');
 Route::get('/materials', [ViewController::class, 'material'])->name('ViewMaterial');
 Route::get('/products', [ViewController::class, 'product'])->name('ViewProduct');
 Route::get('/settings', [SettingController::class, 'index'])->name('ViewSettings');
+Route::get('/sales', [ViewController::class, 'sale'])->name('ViewSale');
 
 // Customer Resource Controller
 Route::resource('customer-action', CustomerController::class);
@@ -60,6 +66,12 @@ Route::get('/supplier-types/{supplierId}', function ($supplierId) {
 
 // Product Resource Controller
 Route::resource('product-action', ProductController::class);
+
+// Sale Resource Controller
+Route::resource('sale-action', SaleController::class);
+Route::resource('invoice-action', InvoiceController::class);
+// Route for showing an invoice by sale ID
+Route::get('/invoice-actions/sale/{invoiceId}', [InvoiceController::class, 'showDetail'])->name('invoice-action.showDetail');
 
 
 require __DIR__.'/auth.php';
