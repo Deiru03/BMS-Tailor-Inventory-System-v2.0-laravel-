@@ -57,16 +57,16 @@ class ViewController extends Controller
     }
 
     public function sale() {
-        $sales = Sale::with(['customersInfo', 'invoiceSales'])->get();
-        $saleItems = SaleItem::with(['productInfo', 'invoiceSale'])->get();
-        $invoiceSales = InvoiceSale::with(['saleItems', 'customersInfo'])->get();
+        $sales = Sale::with(['customer', 'invoiceSales'])->get();
+        $saleItems = SaleItem::with(['product'])->get(); // Removed 'invoiceSale' if not needed
+        $invoiceSales = InvoiceSale::with(['sale'])->get(); // Ensure 'sale' relationship exists in InvoiceSale
         $customers = CustomersInfo::all();
         $products = ProductInfo::all();
         $suppliers = SupplierInfo::all();
-
+    
         return view('sales', [
             'sales' => $sales,
-            'saleItems' => $saleItems, 
+            'saleItems' => $saleItems,
             'invoiceSales' => $invoiceSales,
             'customers' => $customers,
             'products' => $products,

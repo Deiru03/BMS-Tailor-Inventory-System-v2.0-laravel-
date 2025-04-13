@@ -13,6 +13,7 @@ class Sale extends Model
     protected $table = 'sales';
 
     protected $fillable = [
+        'custom_id',
         'customer_id',
         'total_amount',
         'payment_status',
@@ -20,7 +21,7 @@ class Sale extends Model
     ];
     public function customer()
     {
-        return $this->belongsTo(CustomersInfo::class, 'customer_id');
+        return $this->belongsTo(CustomersInfo::class, 'customer_id', 'id');
     }
     public function saleItems()
     {
@@ -33,5 +34,9 @@ class Sale extends Model
     public function products()
     {
         return $this->hasMany(Product::class, 'product_id');
+    }
+    public function invoiceSales()
+    {
+        return $this->hasOne(InvoiceSale::class, 'sale_id', 'id');
     }
 }

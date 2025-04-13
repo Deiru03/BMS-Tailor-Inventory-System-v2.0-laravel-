@@ -20,16 +20,31 @@ class SaleItem extends Model
     {
         return $this->belongsTo(Sale::class, 'sale_id');
     }
+    
+    /**
+     * Get the invoice associated with this sale item through the sale.
+     */
+    public function invoiceSale()
+    {
+        return $this->hasOneThrough(
+            InvoiceSale::class, // Final model
+            Sale::class,        // Intermediate model
+            'id',               // Foreign key on the sales table (intermediate)
+            'sale_id',          // Foreign key on the invoice_sales table (final)
+            'sale_id',          // Local key on the sale_items table
+            'id'                // Local key on the sales table
+        );
+    }
+
+    /**
+     * Get the product associated with the sale item.
+     */
     public function product()
     {
-        return $this->belongsTo(Product::class, 'product_id');
+        return $this->belongsTo(Product::class, 'product_id', 'id');
     }
     public function returnSales()
     {
         return $this->hasMany(ReturnSales::class, 'sale_item_id');
-    }
-    public function invoiceSales()
-    {
-        return $this->hasMany(InvoiceSale::class, 'sale_item_id');
     }
 }

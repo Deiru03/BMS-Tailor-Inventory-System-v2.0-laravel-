@@ -7,6 +7,9 @@ use App\Http\Controllers\Customer\CustomerController;
 use App\Http\Controllers\Supplier\SupplierController;
 use App\Http\Controllers\Material\MaterialsController;
 use App\Http\Controllers\Product\ProductController;
+use App\Http\Controllers\Sale\SaleController as SaleController;
+use App\Http\Controllers\Sale\InvoiceController;
+use App\Http\Controllers\Sale\ReturnController;
 use App\Http\Controllers\SettingController;;
 
 //Models 
@@ -62,5 +65,7 @@ Route::get('/supplier-types/{supplierId}', function ($supplierId) {
 // Product Resource Controller
 Route::resource('product-action', ProductController::class);
 
-
+// Sale Resource Controller
+Route::resource('sale-action', SaleController::class);
+Route::resource('invoice-action', InvoiceController::class);
 require __DIR__.'/auth.php';

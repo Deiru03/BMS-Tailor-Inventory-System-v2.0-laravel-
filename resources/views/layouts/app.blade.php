@@ -167,7 +167,7 @@
                     <!-- Sales -->
                     <div class="py-3 px-6 border-t border-gray-200">
                         <p class="text-sm font-medium text-gray-600 mb-2">Sales</p>
-                        <a href="#"
+                        <a href="#" onclick="openSaleModal('newSaleModal'); return false;"
                             class="flex items-center px-6 py-2 text-gray-700 hover:bg-blue-100 hover:text-blue-800 text-sm">
                             <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -362,11 +362,23 @@
     <!-- Include Product Modal Component -->
     @include('components.product-modals.product-create')
 
+    <!-- Include Sale Modal Component -->
+    @include('components.sale-modals.sale-new-create')
+
     <!-- Modal Script -->
     @once
         <script>
             document.addEventListener('DOMContentLoaded', function() {
                 window.openModal = function(id) {
+                    const modal = document.getElementById(id);
+                    if (modal) {
+                        modal.classList.remove('hidden');
+                    } else {
+                        console.error(`Modal with id ${id} not found`);
+                    }
+                }
+
+                window.openSaleModal = function(id) {
                     const modal = document.getElementById(id);
                     if (modal) {
                         modal.classList.remove('hidden');
