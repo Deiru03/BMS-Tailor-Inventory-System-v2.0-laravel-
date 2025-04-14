@@ -47,6 +47,9 @@ Route::get('/materials', [ViewController::class, 'material'])->name('ViewMateria
 Route::get('/products', [ViewController::class, 'product'])->name('ViewProduct');
 Route::get('/settings', [SettingController::class, 'index'])->name('ViewSettings');
 Route::get('/sales', [ViewController::class, 'sale'])->name('ViewSale');
+Route::get('/reports/sales', [ViewController::class, 'salesReport'])->name('ViewSalesReport');
+Route::get('/reports/expenses', [ViewController::class, 'expensesReport'])->name('ViewExpensesReport');
+
 
 // Customer Resource Controller
 Route::resource('customer-action', CustomerController::class);

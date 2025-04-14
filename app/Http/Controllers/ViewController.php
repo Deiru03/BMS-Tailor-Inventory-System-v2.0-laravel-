@@ -135,6 +135,65 @@ class ViewController extends Controller
         ]);
     }
 
+    public function salesReport(Request $request)
+    {
+        // Start with a base query
+        $query = Sale::with(['customer', 'invoiceSales']);
+
+        // Apply filters
+        if ($request->filled('date_from')) {
+            $query->whereDate('created_at', '>=', $request->date_from);
+        }
+
+        if ($request->filled('date_to')) {
+            $query->whereDate('created_at', '<=', $request->date_to);
+        }
+
+        if ($request->filled('payment_status')) {
+            $query->where('payment_status', $request->payment_status);
+        }
+
+        if ($request->filled('invoice_status')) {
+            if ($request->invoice_status === 'has_invoice') {
+                $query->has('invoiceSales');
+            } elseif ($request->invoice_status === 'no_invoice') {
+                $query->doesntHave('invoiceSales');
+            }
+        }
+
+        // Get the filtered results with pagination
+        $sales = $query->orderBy('created_at', 'desc')->paginate(10);
+
+        return view('report.sales-reports', compact('sales'));
+    }
+
+    public function expensesReport(Request $request)
+    {
+        // Fetch unique supplier types for the filter dropdown
+        $supplierTypes = MaterialInfo::select('supplier_type_name')->distinct()->get();
+
+        // Start with a base query
+        $query = MaterialInfo::with('supplier'); // Eager-load the supplier relationship
+
+        // Apply filters
+        if ($request->filled('date_from')) {
+            $query->whereDate('created_at', '>=', $request->date_from);
+        }
+
+        if ($request->filled('date_to')) {
+            $query->whereDate('created_at', '<=', $request->date_to);
+        }
+
+        if ($request->filled('supplier_type')) {
+            $query->where('supplier_type_name', $request->supplier_type);
+        }
+
+        // Get the filtered results with pagination
+        $materials = $query->orderBy('created_at', 'desc')->paginate(10);
+
+        return view('report.expenses-reports', compact('materials', 'supplierTypes'));
+    }
+
     // public function __construct()
     // {
     //     $products = ProductInfo::all();

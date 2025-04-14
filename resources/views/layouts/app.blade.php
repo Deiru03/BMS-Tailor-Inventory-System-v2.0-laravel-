@@ -228,7 +228,7 @@
                     <!-- Reports -->
                     <div class="py-3 px-6 border-t border-gray-200">
                         <p class="text-sm font-medium text-gray-600 mb-2">Reports</p>
-                        <a href="#"
+                        <a href="{{ route('ViewSalesReport') }}"
                             class="flex items-center px-6 py-2 text-gray-700 hover:bg-blue-100 hover:text-blue-800 text-sm">
                             <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -238,7 +238,7 @@
                             </svg>
                             Sales Report
                         </a>
-                        <a href="#"
+                        <a href="{{ route('ViewExpensesReport') }}"
                             class="flex items-center px-6 py-2 text-gray-700 hover:bg-blue-100 hover:text-blue-800 text-sm">
                             <svg class="w-4 h-4 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                                 xmlns="http://www.w3.org/2000/svg">
