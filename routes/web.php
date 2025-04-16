@@ -58,6 +58,7 @@ Route::get('/settings', [SettingController::class, 'index'])->name('ViewSettings
 Route::get('/sales', [ViewController::class, 'sale'])->name('ViewSale');
 Route::get('/reports/sales', [ViewController::class, 'salesReport'])->name('ViewSalesReport');
 Route::get('/reports/expenses', [ViewController::class, 'expensesReport'])->name('ViewExpensesReport');
+Route::get('/reports/invoices', [ViewController::class, 'invoiceReport'])->name('ViewInvoiceReport');
 
 
 // Customer Resource Controller

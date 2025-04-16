@@ -37,7 +37,7 @@
                         </div>
                         
                         <!-- Invoice Status Filter -->
-                        <div>
+                        {{-- <div>
                             <label for="invoice_status" class="block text-sm font-medium text-gray-700">Invoice Status</label>
                             <select id="invoice_status" name="invoice_status" 
                                 class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
@@ -45,7 +45,7 @@
                                 <option value="has_invoice" {{ request('invoice_status') == 'has_invoice' ? 'selected' : '' }}>Has Invoice</option>
                                 <option value="no_invoice" {{ request('invoice_status') == 'no_invoice' ? 'selected' : '' }}>No Invoice</option>
                             </select>
-                        </div>
+                        </div> --}}
                         
                         <!-- Submit and Reset Buttons -->
                         <div class="md:col-span-4 flex justify-end space-x-3">
@@ -86,8 +86,8 @@
                                 <tbody class="bg-white divide-y divide-gray-200">
                                     @foreach($sales as $sale)
                                         <tr>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ $sale->custom_id }}</td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $sale->customer->name ?? 'Walk-in Customer' }}</td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ $sale->sale_id }}</td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $sale->customer_name ?? 'Walk-in Customer' }}</td>
                                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">₱{{ number_format($sale->total_amount, 2) }}</td>
                                             <td class="px-6 py-4 whitespace-nowrap text-sm">
                                                 <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
@@ -95,7 +95,7 @@
                                                     {{ ucfirst($sale->payment_status) }}
                                                 </span>
                                             </td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $sale->created_at->format('M d, Y h:i A') }}</td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ \Carbon\Carbon::parse($sale->sale_date)->format('M d, Y h:i A') }}</td>
                                         </tr>
                                     @endforeach
                                 </tbody>

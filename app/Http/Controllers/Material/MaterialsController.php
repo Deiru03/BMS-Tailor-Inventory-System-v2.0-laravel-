@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Material;
 use App\Models\SupplierInfo;
+use App\Models\ExpenseReport;
 
 class MaterialsController extends Controller
 {
@@ -79,6 +80,20 @@ class MaterialsController extends Controller
             $material->status = $request->status ?? 'in_stock'; // Default to 'in_stock'
             $material->is_active = $request->is_active;
             $material->save();
+
+            // Create a new MaterialInfo record
+            // Get supplier information
+            $supplier = SupplierInfo::find($material->supplier_id);
+
+            // Create expense report for this material purchase
+            $expenseReport = new ExpenseReport();
+            $expenseReport->material_code = $material->material_code;
+            $expenseReport->name = $material->name;
+            $expenseReport->cost_price = $material->cost_price;
+            $expenseReport->supplier_name = $supplier ? $supplier->name : null;
+            $expenseReport->supplier_type = $material->supplier_type_name;
+            $expenseReport->expense_date = now();
+            $expenseReport->save();
 
             // Redirect with success message
             return redirect()->route('ViewMaterial')

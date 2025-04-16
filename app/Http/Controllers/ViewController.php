@@ -13,6 +13,9 @@ use App\Models\CategoryProduct;
 use App\Models\Sale;
 use App\Models\SaleItem;
 use App\Models\InvoiceSale;
+use App\Models\SalesReport;
+use App\Models\ExpenseReport;
+use App\Models\InvoiceReport;
 
 
 class ViewController extends Controller
@@ -134,35 +137,27 @@ class ViewController extends Controller
             'suppliers' => $suppliers
         ]);
     }
-
+    
     public function salesReport(Request $request)
     {
         // Start with a base query
-        $query = Sale::with(['customer', 'invoiceSales']);
+        $query = SalesReport::query();
 
         // Apply filters
         if ($request->filled('date_from')) {
-            $query->whereDate('created_at', '>=', $request->date_from);
+            $query->whereDate('sale_date', '>=', $request->date_from);
         }
 
         if ($request->filled('date_to')) {
-            $query->whereDate('created_at', '<=', $request->date_to);
+            $query->whereDate('sale_date', '<=', $request->date_to);
         }
 
         if ($request->filled('payment_status')) {
             $query->where('payment_status', $request->payment_status);
         }
 
-        if ($request->filled('invoice_status')) {
-            if ($request->invoice_status === 'has_invoice') {
-                $query->has('invoiceSales');
-            } elseif ($request->invoice_status === 'no_invoice') {
-                $query->doesntHave('invoiceSales');
-            }
-        }
-
         // Get the filtered results with pagination
-        $sales = $query->orderBy('created_at', 'desc')->paginate(10);
+        $sales = $query->orderBy('sale_date', 'desc')->paginate(10);
 
         return view('report.sales-reports', compact('sales'));
     }
@@ -192,6 +187,30 @@ class ViewController extends Controller
         $materials = $query->orderBy('created_at', 'desc')->paginate(10);
 
         return view('report.expenses-reports', compact('materials', 'supplierTypes'));
+    }
+
+    public function invoiceReport(Request $request)
+    {
+        // Start with a base query
+        $query = InvoiceReport::query();
+
+        // Apply filters
+        if ($request->filled('date_from')) {
+            $query->whereDate('invoice_date', '>=', $request->date_from);
+        }
+
+        if ($request->filled('date_to')) {
+            $query->whereDate('invoice_date', '<=', $request->date_to);
+        }
+
+        if ($request->filled('status')) {
+            $query->where('status', $request->status);
+        }
+
+        // Get the filtered results with pagination
+        $invoices = $query->orderBy('created_at', 'desc')->paginate(10);
+
+        return view('report.invoice-reports', compact('invoices'));
     }
 
     // public function __construct()

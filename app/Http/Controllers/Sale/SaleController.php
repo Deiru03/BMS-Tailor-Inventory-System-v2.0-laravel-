@@ -9,6 +9,7 @@ use App\Models\SaleItem;
 use App\Models\InvoiceSale;
 use App\Models\CustomersInfo;
 use App\Models\ReturnSales;
+use App\Models\SalesReport;
 use Illuminate\Http\Request;
 
 class SaleController extends Controller
@@ -98,6 +99,15 @@ class SaleController extends Controller
             'change_due' => max(0, $request->amount_paid - $totalAmount),
             'balance' => max(0, $totalAmount - $request->amount_paid),
             'payment_status' => $request->amount_paid >= $totalAmount ? 'paid' : ($request->amount_paid > 0 ? 'partial' : 'unpaid'),
+        ]);
+
+        // Create invoice sale
+        SalesReport::create([
+            'sale_id' => $sale->custom_id,
+            'customer_name' => CustomersInfo::find($request->customer_id)->name,
+            'total_amount' => $totalAmount,
+            'payment_status' => $sale->payment_status,
+            'sale_date' => now(),
         ]);
 
         return redirect()->route('invoice-action.show', $sale->id)->with('success', 'Sale confirmed successfully.');
