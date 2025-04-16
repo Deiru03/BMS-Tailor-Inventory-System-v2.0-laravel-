@@ -239,7 +239,6 @@
         </div>
     </div>
     
-    @push('scripts')
     <script>
         function confirmDelete(saleId) {
             document.getElementById('deleteForm').action = `/sale-action/${saleId}`;
@@ -247,8 +246,13 @@
         }
         
         function closeModal() {
-            document.getElementById('deleteModal').classList.add('hidden');
+            const modal = document.getElementById('deleteModal');
+            console.log(modal); // This should log the modal element or `null` if not found
+            if (modal) {
+                modal.classList.add('hidden');
+            } else {
+                console.error('Modal with id "deleteModal" not found');
+            }
         }
     </script>
-    @endpush
 </x-app-layout>

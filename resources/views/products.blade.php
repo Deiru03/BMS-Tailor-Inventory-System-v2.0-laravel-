@@ -12,7 +12,7 @@
                     <div class="flex justify-between items-center mb-6">
                         <h3 class="text-lg font-semibold">{{ __("Products") }}</h3>
                         <button type="button" onclick="openModal('productModal')" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
-                            {{ __('Add New Material') }}
+                            {{ __('Add New Product') }}
                         </button>
                     </div>
 

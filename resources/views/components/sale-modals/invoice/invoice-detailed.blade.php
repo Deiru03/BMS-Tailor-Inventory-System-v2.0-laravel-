@@ -66,7 +66,12 @@
                     </div>
                     <div class="text-sm">
                         <p class="mb-1"><span class="font-semibold">Customer:</span>
-                            {{ $invoice->sale->customer->name }}</p>
+                            @if(isset($invoice->sale->customer) && $invoice->sale->customer)
+                                {{ $invoice->sale->customer->name }}
+                            @else
+                                Walk in Customer
+                            @endif
+                        </p>
                     </div>
                 </div>
 
@@ -176,7 +181,12 @@
                     </div>
                     <div class="text-sm">
                         <p class="mb-1"><span class="font-semibold">Customer:</span>
-                            {{ $invoice->sale->customer->name }}</p>
+                            @if(isset($invoice->sale->customer) && $invoice->sale->customer)
+                                {{ $invoice->sale->customer->name }}
+                            @else
+                                Walk in Customer
+                            @endif
+                        </p>
                     </div>
                 </div>
 

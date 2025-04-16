@@ -10,11 +10,10 @@ use App\Http\Controllers\Product\ProductController;
 use App\Http\Controllers\Sale\SaleController as SaleController;
 use App\Http\Controllers\Sale\InvoiceController;
 use App\Http\Controllers\Sale\ReturnController;
-use App\Http\Controllers\SettingController;;
-
-//Models 
+use App\Http\Controllers\SettingController;
 use App\Models\SupplierInfo;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Artisan;
 
 Route::get('/', function () {
     return view('welcome');
@@ -30,6 +29,16 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 // ------------------------- Automations Route ------------------------- //
+Route::get('/clear-cache', function () {
+    Artisan::call('config:clear');
+    Artisan::call('cache:clear');
+    Artisan::call('route:clear');
+    Artisan::call('view:clear');
+
+    return response()->json([
+        'message' => 'Application cache cleared successfully!'
+    ]);
+})->name('clear.cache');
 
 
 //------------------------- Settings Routes ------------------------- //
