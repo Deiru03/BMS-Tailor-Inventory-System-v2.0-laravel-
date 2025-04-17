@@ -15,6 +15,12 @@
 
             <div class="mt-5 p-4 sm:p-4 bg-white shadow sm:rounded-lg border border-blue-200 hover:bg-blue-50 mx-auto" style="width: 1000px;">
                 <div class="w-full mx-auto">
+                    @include('settings.partials.supplier-type-form')
+                </div>
+            </div>
+
+            <div class="mt-5 p-4 sm:p-4 bg-white shadow sm:rounded-lg border border-blue-200 hover:bg-blue-50 mx-auto" style="width: 1000px;">
+                <div class="w-full mx-auto">
                     @include('settings.partials.company-info')
                 </div>
             </div>

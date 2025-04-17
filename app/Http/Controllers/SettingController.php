@@ -9,6 +9,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
+use App\Models\SupplierType;
 use Illuminate\View\View;
 
 class SettingController extends Controller
@@ -19,6 +20,7 @@ class SettingController extends Controller
     public function index(Request $request): View
     {
         $productTypes = ProductType::all();
+        $supplierTypes = SupplierType::all();
 
         return view('settings.Settings', [
             'productTypes' => $productTypes,
@@ -55,6 +57,23 @@ class SettingController extends Controller
         $productType->save();
 
         return redirect()->back()->with('success', 'Product type created successfully.');
+    }
+
+    public function supplierTypeStore(Request $request)
+    {
+        try {
+            $request->validate([
+                'name' => 'required|string|max:255',
+            ]);
+    
+            $supplierTYpe = new SupplierType();
+            $supplierTYpe->name = $request->input('name');
+            $supplierTYpe->save();
+    
+            return redirect()->back()->with('success', 'Supplier type created successfully.');
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('error', 'Failed to create supplier type: ' . $th->getMessage());
+        }
     }
 
     /**
@@ -112,6 +131,11 @@ class SettingController extends Controller
         }
     }
 
+    public function supplierTypeUpdate(Request $request, string $id)
+    {
+        // Ready na
+    }
+
     /**
      * Remove the specified resource from storage.
      */
@@ -124,6 +148,14 @@ class SettingController extends Controller
         $productType = ProductType::findOrFail($id); // Find the product type by ID
         $productType->delete(); // Delete the product type
         return redirect()->back()->with('success', 'Product type deleted successfully.');
+    }
+
+    public function supplierTypeDestroy(string $id)
+    {
+        $supplierType = SupplierType::findOrFail($id);
+        $supplierType->delete();
+        return redirect()->back()->with('success', 'Supplier type deleted successfully.');
+        
     }
 
     /////////////////////////////////////////// Common Functions - Company Info ///////////////////////////////////////////

@@ -23,6 +23,11 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+// Check The User if the sessions expire or not
+Route::get('/session-expired', function () {
+    return redirect()->route('login')->with('expired', 'Your session has expired. Please log in again.');
+})->name('session.expired');
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -47,6 +52,10 @@ route::get('/settings/product-action-edit', [SettingController::class, 'productT
 route::put('/settings/product-action/update/{id}', [SettingController::class, 'productTypeUpdate'])->name('product-type.update');
 route::delete('/settings/product-action/destroy/{id}', [SettingController::class, 'productTypeDestroy'])->name('product-type.destroy');
 Route::match(['get', 'post'], '/settings/company-info', [SettingController::class, 'companyInfo'])->name('settings.company-info');
+route::post('/settings/supplier-action-store', [SettingController::class, 'supplierTypeStore'])->name('supplier-type.store');
+route::get('/settings/supplier-action-edit', [SettingController::class, 'supplierTypeEdit'])->name('supplier-type.edit');
+route::put('/settings/supplier-action/update/{id}', [SettingController::class, 'supplierTypeUpdate'])->name('supplier-type.update');
+route::delete('/settings/supplier-action/destroy/{id}', [SettingController::class, 'supplierTypeDestroy'])->name('supplier-type.destroy');
 
 //------------------------- Sidebar Buttons and Routes ------------------------- //
 Route::get('/dashboard', [ViewController::class, 'dashboard'])->name('dashboard');
