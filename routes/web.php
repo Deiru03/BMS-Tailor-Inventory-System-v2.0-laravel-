@@ -83,6 +83,7 @@ Route::resource('product-action', ProductController::class);
 // Sale Resource Controller
 Route::resource('sale-action', SaleController::class);
 Route::resource('invoice-action', InvoiceController::class);
+Route::post('/sales/{sale}/pay', [SaleController::class, 'payRemainingBalance'])->name('sales.pay');
 // Route for showing an invoice by sale ID
 Route::get('/invoice-actions/sale/{invoiceId}', [InvoiceController::class, 'showDetail'])->name('invoice-action.showDetail');
 

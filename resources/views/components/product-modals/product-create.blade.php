@@ -10,7 +10,7 @@
     <div class="relative top-20 mx-auto p-6 border border-gray-200 w-full max-w-3xl shadow-2xl rounded-lg bg-white max-h-[85vh] overflow-y-auto transform transition-all">
         <div class="mt-2">
             <div class="flex justify-between items-center pb-4 mb-4 border-b border-gray-200 sticky top-0 bg-white z-10">
-                <h3 class="text-xl font-semibold text-gray-800">Add New Material</h3>
+                <h3 class="text-xl font-semibold text-gray-800">Add New Product</h3>
                 <button type="button" class="text-gray-400 hover:text-gray-600 transition-colors" onclick="closeModal('productModal')">
                     <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
