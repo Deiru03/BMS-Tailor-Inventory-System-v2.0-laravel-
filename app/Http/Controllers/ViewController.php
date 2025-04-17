@@ -20,9 +20,34 @@ use App\Models\InvoiceReport;
 
 class ViewController extends Controller
 {
-    public function dashboard(){
+    public function dashboard(request $request): View{
+
+        // Get the filter from the request or default to 'today'
+        $filter = $request->get('filter', 'today');
+
+        // Determine the date range based on the filter
+        switch ($filter) {
+            case 'week':
+                $startDate = now()->startOfWeek();
+                $endDate = now()->endOfWeek();
+                break;
+            case 'month':
+                $startDate = now()->startOfMonth();
+                $endDate = now()->endOfMonth();
+                break;
+            case 'year':
+                $startDate = now()->startOfYear();
+                $endDate = now()->endOfYear();
+                break;
+            case 'today':
+            default:
+                $startDate = now()->startOfDay();
+                $endDate = now()->endOfDay();
+                break;
+        }
         // Fetch key metrics
-        $totalSales = Sale::sum('total_amount');
+        // $totalSales = Sale::sum('total_amount');
+        $totalSales = Sale::whereBetween('created_at', [$startDate, $endDate])->sum('total_amount');
         $totalCustomers = CustomersInfo::count();
         $totalProducts = ProductInfo::count();
         $pendingPayments = Sale::where('payment_status', '!=', 'paid')->sum('balance');
@@ -54,7 +79,8 @@ class ViewController extends Controller
             'recentSales',
             'productStocks',
             'salesDates',
-            'salesAmounts'
+            'salesAmounts',
+            'filter'
         ));
     }
 

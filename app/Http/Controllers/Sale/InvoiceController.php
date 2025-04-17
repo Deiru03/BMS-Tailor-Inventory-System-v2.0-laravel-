@@ -65,7 +65,7 @@ class InvoiceController extends Controller
                 'customer_name' => $sale->customer->name,
                 'total_amount' => $invoice->total_amount,
                 'issued_at' => now(),
-                'status' => 'generated',
+                'status' => $sale->payment_status,
             ]);
         
             return view('components.sale-modals.invoice.invoice-detailed', compact('invoice'))->with('invoice_id', $invoice->id)

@@ -69,9 +69,11 @@
                                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Sale ID</th>
                                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Customer Name</th>
                                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Total Amount</th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Amount Paid</th> <!-- New Column -->
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Balance</th> <!-- New Column -->
                                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Issue Date</th>
                                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                                        {{-- <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th> --}}
                                     </tr>
                                 </thead>
                                 <tbody class="bg-white divide-y divide-gray-200">
@@ -81,15 +83,17 @@
                                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $invoice->sale_id }}</td>
                                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $invoice->customer_name }}</td>
                                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">₱{{ number_format($invoice->total_amount, 2) }}</td>
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">₱{{ number_format($invoice->amount_paid, 2) }}</td> <!-- New Column -->
+                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">₱{{ number_format($invoice->balance, 2) }}</td> <!-- New Column -->
                                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $invoice->issued_at ? date('M d, Y', strtotime($invoice->issued_at)) : 'N/A' }}</td>
                                             <td class="px-6 py-4 whitespace-nowrap text-sm">
                                                 <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
                                                     {{ $invoice->status === 'paid' ? 'bg-green-100 text-green-800' : 
-                                                      ($invoice->status === 'pending' ? 'bg-yellow-100 text-yellow-800' : 'bg-red-100 text-red-800') }}">
+                                                      ($invoice->status === 'partial' ? 'bg-yellow-100 text-yellow-800' : 'bg-red-100 text-red-800') }}">
                                                     {{ ucfirst($invoice->status) }}
                                                 </span>
                                             </td>
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 space-x-2">
+                                            {{-- <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 space-x-2">
                                                 <button class="text-blue-600 hover:text-blue-900 view-invoice" data-id="{{ $invoice->id }}">
                                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -101,11 +105,11 @@
                                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
                                                     </svg>
                                                 </button>
-                                            </td>
+                                            </td> --}}
                                         </tr>
                                     @empty
                                         <tr>
-                                            <td colspan="7" class="px-6 py-4 text-center text-sm text-gray-500">No invoices found matching your criteria.</td>
+                                            <td colspan="9" class="px-6 py-4 text-center text-sm text-gray-500">No invoices found matching your criteria.</td>
                                         </tr>
                                     @endforelse
                                 </tbody>
@@ -129,8 +133,8 @@
                     <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
                         @php
                             $totalAmount = $invoices->sum('total_amount');
-                            $paidAmount = $invoices->where('status', 'paid')->sum('total_amount');
-                            $pendingAmount = $invoices->where('status', 'pending')->sum('total_amount');
+                            $paidAmount = $invoices->sum('amount_paid'); 
+                            $pendingAmount = $invoices->sum('balance'); 
                         @endphp
                         <div class="p-4 border rounded-md bg-gray-50">
                             <p class="text-sm text-gray-500">Total Invoices</p>

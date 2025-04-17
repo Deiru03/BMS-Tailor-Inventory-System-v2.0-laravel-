@@ -13,6 +13,8 @@ class InvoiceReport extends Model
         'sale_id',
         'customer_name',
         'total_amount',
+        'amount_paid',
+        'balance',
         'issued_at',
         'status',
     ];

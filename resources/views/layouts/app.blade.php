@@ -276,13 +276,21 @@
                     <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
                         <div class="flex justify-between items-center">
                             <div class="flex items-center">
-                                <button onclick="window.history.back()" class="mr-4 text-gray-600 hover:text-gray-900">
+                                <button onclick="goBackAndRefresh()" class="mr-4 text-gray-600 hover:text-gray-900">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                         stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                                         <path stroke-linecap="round" stroke-linejoin="round"
                                             d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
                                     </svg>
                                 </button>
+                                <script>
+                                    function goBackAndRefresh() {
+                                        window.history.back();
+                                        setTimeout(function() {
+                                            window.location.reload();
+                                        }, 100); // Small delay to ensure back navigation completes
+                                    }
+                                </script>
                                 <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                                     {{ $header }}
                                 </h2>

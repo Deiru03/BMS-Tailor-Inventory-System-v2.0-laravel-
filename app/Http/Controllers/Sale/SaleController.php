@@ -10,6 +10,7 @@ use App\Models\InvoiceSale;
 use App\Models\CustomersInfo;
 use App\Models\ReturnSales;
 use App\Models\SalesReport;
+use App\Models\InvoiceReport;
 use Illuminate\Http\Request;
 
 class SaleController extends Controller
@@ -122,26 +123,40 @@ class SaleController extends Controller
             $request->validate([
                 'amount' => 'required|numeric|min:0.01|max:' . $sale->balance,
             ]);
-        
+    
             // Update the sale's payment details
             $sale->amount_paid += $request->amount;
             $sale->balance -= $request->amount;
-        
+    
             // Update payment status if fully paid
             if ($sale->balance <= 0) {
                 $sale->payment_status = 'paid';
                 $sale->balance = 0; // Ensure balance is exactly 0
+            } else {
+                $sale->payment_status = 'partial';
             }
-        
+    
             $sale->save();
-        
+    
+            // Create a new InvoiceReport record
+            InvoiceReport::create([
+                'invoice_number' => 'INV-' . now()->format('Ymd') . '-' . str_pad(InvoiceReport::count() + 1, 4, '0', STR_PAD_LEFT),
+                'sale_id' => $sale->custom_id,
+                'customer_name' => $sale->customer->name,
+                'total_amount' => $sale->total_amount,
+                'amount_paid' => $sale->amount_paid, // Updated total amount paid
+                'balance' => $sale->balance,
+                'status' => $sale->payment_status,
+                'issued_at' => now(),
+            ]);
+    
             // Redirect to the invoice details page
             $invoice = $sale->invoiceSales; // Assuming the relationship is defined in the Sale model
             if ($invoice) {
                 return redirect()->route('invoice-action.showDetail', $invoice->id)
-                                 ->with('success', 'Payment successfully recorded. Redirecting to the invoice.');
+                                 ->with('success', 'Payment successfully recorded. A new InvoiceReport has been created.');
             }
-        
+    
             return redirect()->route('ViewSale')->with('error', 'Invoice not found for this sale.');
         } catch (\Throwable $th) {
             return redirect()->route('ViewSale')->with('error', 'Error processing payment: ' . $th->getMessage());

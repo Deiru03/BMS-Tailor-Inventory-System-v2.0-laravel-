@@ -10,10 +10,28 @@
             <!-- Key Metrics -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 <!-- Total Sales -->
-                <div class="bg-blue-500 text-white rounded-lg shadow-md p-6">
-                    <h3 class="text-lg font-semibold">Total Sales</h3>
+                <div class="bg-blue-500 text-white rounded-lg shadow-md p-6 relative">
+                    <div class="flex justify-between items-center">
+                        <h3 class="text-lg font-semibold">Total Sales</h3>
+                        <!-- Dropdown for selecting time period -->
+                        <div class="relative">
+                            <select id="salesFilter" onchange="filterSales()" class="bg-blue-400 text-white text-sm rounded-md px-3 py-1.5 focus:outline-none">
+                                <option value="today" {{ $filter == 'today' ? 'selected' : '' }}>Today</option>
+                                <option value="week" {{ $filter == 'week' ? 'selected' : '' }}>This Week</option>
+                                <option value="month" {{ $filter == 'month' ? 'selected' : '' }}>This Month</option>
+                                <option value="year" {{ $filter == 'year' ? 'selected' : '' }}>This Year</option>
+                            </select>
+                        </div>
+                    </div>
                     <p class="text-3xl font-bold mt-2">₱{{ number_format($totalSales, 2) }}</p>
                 </div>
+
+                <script>
+                    function filterSales() {
+                        const filter = document.getElementById('salesFilter').value;
+                        window.location.href = `?filter=${filter}`;
+                    }
+                </script>
 
                 <!-- Total Customers -->
                 <div class="bg-green-500 text-white rounded-lg shadow-md p-6">
