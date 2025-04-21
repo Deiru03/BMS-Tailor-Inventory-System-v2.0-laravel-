@@ -115,7 +115,7 @@
 
                     <div class="form-group">
                         <p class="block text-sm font-medium text-gray-600 mb-1">Reorder Level</p>
-                        <p class="text-amber-800">{{ number_format($material->reorder_level ?: 'Not set', 0) }}</p>
+                        <p class="text-amber-800">{{ $material->reorder_level ? number_format($material->reorder_level, 0) : 'Not set' }}</p>
                     </div>
                 </div>
             </div>

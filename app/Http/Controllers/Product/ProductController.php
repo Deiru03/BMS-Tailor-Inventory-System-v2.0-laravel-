@@ -59,7 +59,7 @@ class ProductController extends Controller
                 'name' => 'required|string|max:255',
                 // 'product_type' => 'nullable|string|max:255', // This might be incorrect
                 'product_type' => 'nullable|string|max:255',
-                'supplier_id' => 'nullable|exists:supplier_infos,id',
+                // 'supplier_id' => 'nullable|exists:supplier_infos,id',
                 'stock_quantity' => 'required|numeric|min:0',
                 'unit_price' => 'required|numeric|min:0',
                 'status' => 'required|in:in_stock,low_stock,out_of_stock,discontinued',
@@ -71,7 +71,7 @@ class ProductController extends Controller
                 'product_code' => $request->input('product_code'),
                 'name' => $request->input('name'),
                 'product_type' => $request->input('product_type'), // Save the string directly
-                'supplier_id' => $request->input('supplier_id'),
+                // 'supplier_id' => $request->input('supplier_id'),
                 'description' => $request->input('description'),
                 'stock_quantity' => $request->input('stock_quantity'),
                 'unit' => $request->input('unit'),

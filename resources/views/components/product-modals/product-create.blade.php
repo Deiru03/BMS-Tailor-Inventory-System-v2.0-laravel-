@@ -72,7 +72,7 @@
                         </div>
 
                         <!-- Supplier -->
-                        <div class="form-group">
+                        {{-- <div class="form-group">
                             <label for="supplier_id" class="block text-sm font-medium text-gray-700 mb-1">Supplier</label>
                             <select name="supplier_id" id="supplier_id" class="form-control w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
                                 <option value="">Select a Supplier</option>
@@ -80,7 +80,7 @@
                                     <option value="{{ $supplier->id }}">{{ $supplier->name }}</option>
                                 @endforeach
                             </select>
-                        </div>
+                        </div> --}}
 
                         <!-- Description -->
                         <div class="form-group col-span-2">

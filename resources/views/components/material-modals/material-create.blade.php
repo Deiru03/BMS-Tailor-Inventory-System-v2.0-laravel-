@@ -60,7 +60,7 @@
                 </div>
 
                 <!-- Material Properties Section -->
-                <div class="mb-6 p-4 bg-gray-50 rounded-lg">
+                {{-- <div class="mb-6 p-4 bg-gray-50 rounded-lg">
                     <h4 class="text-lg font-medium text-gray-700 mb-3 border-b pb-2">Material Properties</h4>
                     <div class="grid grid-cols-2 gap-4">
                         <div class="form-group">
@@ -103,7 +103,32 @@
                             <input type="text" name="unit" id="unit" class="form-control w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
                         </div>
                     </div>
-                </div>
+                </div> --}}
+                <!-- Material Properties Section -->
+                {{-- <div class="mb-6 p-4 bg-gray-50 rounded-lg">
+                    <h4 class="text-lg font-medium text-gray-700 mb-3 border-b pb-2">Material Properties</h4>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="form-group">
+                            <label for="type" class="block text-sm font-medium text-gray-700 mb-1">Type</label>
+                            <input type="text" name="type" id="type" class="form-control w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="color" class="block text-sm font-medium text-gray-700 mb-1">Color</label>
+                            <input type="text" name="color" id="color" class="form-control w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="pattern" class="block text-sm font-medium text-gray-700 mb-1">Pattern</label>
+                            <input type="text" name="pattern" id="pattern" class="form-control w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="composition" class="block text-sm font-medium text-gray-700 mb-1">Composition</label>
+                            <input type="text" name="composition" id="composition" class="form-control w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        </div>
+                    </div>
+                </div> --}}
 
                 <!-- Inventory & Pricing Section -->
                 <div class="mb-6 p-4 bg-gray-50 rounded-lg">
@@ -133,10 +158,10 @@
                             <input type="number" name="cost_price" id="cost_price" class="form-control w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" step="0.01">
                         </div>
 
-                        <div class="form-group">
+                        {{-- <div class="form-group">
                             <label for="reorder_level" class="block text-sm font-medium text-gray-700 mb-1">Reorder Level</label>
                             <input type="number" name="reorder_level" id="reorder_level" class="form-control w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
 
